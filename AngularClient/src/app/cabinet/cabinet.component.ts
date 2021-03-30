@@ -11,6 +11,8 @@ export class CabinetComponent implements OnInit {
 
   userDetails = new ApplicationUser();
   editMode = false;
+  public response : {dbPath : ''}
+  readonly BaseURI = `https://localhost:44352/`;
 
   constructor(private service: UserService,private toastr: ToastrService) { }
 
@@ -18,6 +20,7 @@ export class CabinetComponent implements OnInit {
     this.service.getUserProfile().subscribe(
       (res:ApplicationUser) =>{
         this.userDetails = res;
+        this.createImgPath(res.imgPath);
       },
       err =>{
         console.log(err);
@@ -30,6 +33,7 @@ export class CabinetComponent implements OnInit {
   }
 
   save(user: ApplicationUser){
+    user.imgPath = this.response.dbPath;
     this.service.updateUserProfile(user).subscribe(
       (res: any) => {
         if(res.succeeded){
@@ -46,6 +50,15 @@ export class CabinetComponent implements OnInit {
     );
 
     this.editMode = false;
+  }
+
+  public uploadFinished = (event) =>{
+    this.response = event;
+  }
+
+  public createImgPath = (serverPath: string) => {
+    if(serverPath)
+    return  this.BaseURI + `${serverPath}`;
   }
 
 }

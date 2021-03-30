@@ -26,6 +26,7 @@ import { ru_RU } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { CabinetComponent } from './cabinet/cabinet.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 registerLocaleData(ru);
 
@@ -38,7 +39,8 @@ registerLocaleData(ru);
     HomeComponent,
     AdminPanelComponent,
     ForbiddenComponent,
-    CabinetComponent
+    CabinetComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
