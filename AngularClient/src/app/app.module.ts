@@ -29,6 +29,8 @@ import { CabinetComponent } from './cabinet/cabinet.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FileDownloadComponent } from './file-download/file-download.component';
 import { FileDownloadService } from './shared/fileService/file-download.service'; 
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { LectureComponent } from './lecture/lecture.component';
 
 registerLocaleData(ru);
 
@@ -43,7 +45,8 @@ registerLocaleData(ru);
     ForbiddenComponent,
     CabinetComponent,
     FileUploadComponent,
-    FileDownloadComponent
+    FileDownloadComponent,
+    LectureComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,7 @@ registerLocaleData(ru);
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AngularEditorModule,
     ToastrModule.forRoot(),
     FormsModule
   ],
