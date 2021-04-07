@@ -27,6 +27,8 @@ import { registerLocaleData } from '@angular/common';
 import ru from '@angular/common/locales/ru';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FileDownloadComponent } from './file-download/file-download.component';
+import { FileDownloadService } from './shared/fileService/file-download.service'; 
 
 registerLocaleData(ru);
 
@@ -40,7 +42,8 @@ registerLocaleData(ru);
     AdminPanelComponent,
     ForbiddenComponent,
     CabinetComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    FileDownloadComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,7 @@ registerLocaleData(ru);
     ToastrModule.forRoot(),
     FormsModule
   ],
-  providers: [UserService,{
+  providers: [UserService,FileDownloadService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

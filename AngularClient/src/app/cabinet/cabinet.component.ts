@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { UserService,ApplicationUser } from '../shared/user.service';
 import { ToastrService } from 'ngx-toastr';
 
+import { FileDownloadService } from '../shared/fileService/file-download.service';
+import { ProgressStatus, ProgressStatusEnum } from '../shared/fileService/file-download.service';
+
 @Component({
   selector: 'app-cabinet',
   templateUrl: './cabinet.component.html',
@@ -14,7 +17,15 @@ export class CabinetComponent implements OnInit {
   public response : {dbPath : ''}
   readonly BaseURI = `https://localhost:44352/`;
 
-  constructor(private service: UserService,private toastr: ToastrService) { }
+
+  public files: string[];
+  public fileInDownload: string;
+  public percentage: number;
+  public showProgress: boolean;
+  public showDownloadError: boolean;
+
+
+  constructor(private service: UserService,private toastr: ToastrService,private serviceDownload: FileDownloadService) { }
 
   ngOnInit(): void {
     this.service.getUserProfile().subscribe(
@@ -26,6 +37,9 @@ export class CabinetComponent implements OnInit {
         console.log(err);
       }
     );
+
+    this.getFiles();
+
   }
 
   edit(){
@@ -59,6 +73,37 @@ export class CabinetComponent implements OnInit {
   public createImgPath = (serverPath: string) => {
     if(serverPath)
     return  this.BaseURI + `${serverPath}`;
+  }
+
+
+
+  //Download File
+
+  private getFiles() {
+    this.serviceDownload.getFiles().subscribe(
+      data => {
+        this.files = data;
+      }
+    );
+  }
+
+  public downloadStatus(event: ProgressStatus) {
+    switch (event.status) {
+      case ProgressStatusEnum.START:
+        this.showDownloadError = false;
+        break;
+      case ProgressStatusEnum.IN_PROGRESS:
+        this.showProgress = true;
+        this.percentage = event.percentage;
+        break;
+      case ProgressStatusEnum.COMPLETE:
+        this.showProgress = false;
+        break;
+      case ProgressStatusEnum.ERROR:
+        this.showProgress = false;
+        this.showDownloadError = true;
+        break;
+    }
   }
 
 }
