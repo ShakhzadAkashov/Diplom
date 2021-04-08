@@ -12,6 +12,7 @@ export class FileUploadComponent implements OnInit {
   public message: string;
   
   @Output() public onUploadFinished = new EventEmitter();
+  @Output() fileName = new EventEmitter<string>();
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +25,7 @@ export class FileUploadComponent implements OnInit {
     }
     
     let fileToUpload = <File>files[0];
+    this.fileName.emit(fileToUpload.name);
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
     

@@ -29,6 +29,7 @@ import { CabinetComponent } from './cabinet/cabinet.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { FileDownloadComponent } from './file-download/file-download.component';
 import { FileDownloadService } from './shared/fileService/file-download.service'; 
+import { LectureService } from './shared/lectureService/lecture.service'; 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { LectureComponent } from './lecture/lecture.component';
 
@@ -64,7 +65,7 @@ registerLocaleData(ru);
     ToastrModule.forRoot(),
     FormsModule
   ],
-  providers: [UserService,FileDownloadService,{
+  providers: [UserService,FileDownloadService,LectureService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

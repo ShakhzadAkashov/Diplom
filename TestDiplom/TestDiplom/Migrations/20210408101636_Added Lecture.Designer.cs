@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestDiplom.Models;
 
 namespace TestDiplom.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20210408101636_Added Lecture")]
+    partial class AddedLecture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,7 +223,7 @@ namespace TestDiplom.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TestDiplom.Models.Lecture.Lecture", b =>
+            modelBuilder.Entity("TestDiplom.Models.lecture.Lecture", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -242,29 +244,6 @@ namespace TestDiplom.Migrations
                     b.HasIndex("OwnerId");
 
                     b.ToTable("Lectures");
-                });
-
-            modelBuilder.Entity("TestDiplom.Models.Lecture.LectureFile", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LectureId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LectureId");
-
-                    b.ToTable("LectureFiles");
                 });
 
             modelBuilder.Entity("TestDiplom.Models.ApplicationUser", b =>
@@ -331,24 +310,13 @@ namespace TestDiplom.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TestDiplom.Models.Lecture.Lecture", b =>
+            modelBuilder.Entity("TestDiplom.Models.lecture.Lecture", b =>
                 {
                     b.HasOne("TestDiplom.Models.ApplicationUser", "OwnerFk")
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("OwnerFk");
-                });
-
-            modelBuilder.Entity("TestDiplom.Models.Lecture.LectureFile", b =>
-                {
-                    b.HasOne("TestDiplom.Models.Lecture.Lecture", "LectureFk")
-                        .WithMany()
-                        .HasForeignKey("LectureId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LectureFk");
                 });
 #pragma warning restore 612, 618
         }
