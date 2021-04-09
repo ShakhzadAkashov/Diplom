@@ -20,6 +20,18 @@ namespace TestDiplom.Controllers.lecture
             _context = context;
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("GetAllLecturesForUser")]
+        //GET : /api/Lecture/GetAllLecturesForUser
+        public List<Lecture> GetAllLecturesForUser()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var list = _context.Lectures.Where(l => l.OwnerId == userId);
+            return list.ToList();
+        }
+
         [HttpPost]
         [Authorize]
         [Route("CreateLecture")]

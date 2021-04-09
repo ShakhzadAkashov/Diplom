@@ -4,6 +4,7 @@ import { Lecture } from '../models/Lecture';
 import { LectureFile } from '../models/LectureFile';
 import { LectureService } from '../shared/lectureService/lecture.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-lecture',
@@ -60,7 +61,7 @@ export class LectureComponent implements OnInit {
 };
 
 
-  constructor(private service:LectureService,private toastr: ToastrService) { }
+  constructor(private service:LectureService,private toastr: ToastrService,private router: Router) { }
 
   lecture: Lecture = new Lecture();
   lectureFiles:LectureFile[] = [];
@@ -87,7 +88,8 @@ export class LectureComponent implements OnInit {
     this.lecture.LectureFiles = this.lectureFiles;
     this.service.createLecture(this.lecture).subscribe(
       (res: any) => {
-      this.toastr.success('Created!', 'Lecture created successful.');}
+      this.toastr.success('Created!', 'Lecture created successful.');
+      this.router.navigateByUrl('/home/lectureList');}
     );
   }
 

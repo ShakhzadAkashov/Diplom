@@ -32,6 +32,8 @@ import { FileDownloadService } from './shared/fileService/file-download.service'
 import { LectureService } from './shared/lectureService/lecture.service'; 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { LectureComponent } from './lecture/lecture.component';
+import { LectureListComponent } from './lecture/lecture-list/lecture-list.component';
+import { TableModule } from 'primeng/table';
 
 registerLocaleData(ru);
 
@@ -47,7 +49,8 @@ registerLocaleData(ru);
     CabinetComponent,
     FileUploadComponent,
     FileDownloadComponent,
-    LectureComponent
+    LectureComponent,
+    LectureListComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +65,7 @@ registerLocaleData(ru);
     HttpClientModule,
     BrowserAnimationsModule,
     AngularEditorModule,
+    TableModule,
     ToastrModule.forRoot(),
     FormsModule
   ],

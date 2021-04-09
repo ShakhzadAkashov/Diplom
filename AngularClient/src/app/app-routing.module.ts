@@ -9,6 +9,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { CabinetComponent } from './cabinet/cabinet.component';
 import { LectureComponent } from './lecture/lecture.component';
+import { LectureListComponent } from './lecture/lecture-list/lecture-list.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/user/login', pathMatch:'full'},
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate:[AuthGuard],children:[
     {path: 'forbidden', component: ForbiddenComponent},
     {path: 'cabinet', component: CabinetComponent, canActivate:[AuthGuard] },
-    {path: 'lecture', component: LectureComponent, canActivate:[AuthGuard] }
+    {path: 'lecture', component: LectureComponent, canActivate:[AuthGuard] },
+    {path: 'lectureList', component: LectureListComponent, canActivate:[AuthGuard] }
   ]},
   //{path: 'forbidden', component: ForbiddenComponent},
   {path: 'adminpanel', component: AdminPanelComponent, canActivate:[AuthGuard], data: {permittedRoles:['Admin']}}
