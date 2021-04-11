@@ -24,12 +24,87 @@ namespace TestDiplom.Controllers.lecture
         [Authorize]
         [Route("GetAllLecturesForUser")]
         //GET : /api/Lecture/GetAllLecturesForUser
-        public List<Lecture> GetAllLecturesForUser()
+        public List<LectureModel> GetAllLecturesForUser()
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
             var list = _context.Lectures.Where(l => l.OwnerId == userId);
-            return list.ToList();
+
+            var lst = new List<LectureModel>();
+
+            foreach (var item in list)
+            {
+                var lecture = new LectureModel();
+
+                lecture.Id = item.Id;
+                lecture.Name = item.Name;
+                lecture.OwnerId = item.OwnerId;
+                lecture.LectureFiles = GetAllLectureFilesById(item.Id);
+
+                lst.Add(lecture);
+            }
+
+            return lst;
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetAllLecturesById")]
+        //GET : /api/Lecture/GetAllLecturesById
+        public LectureModel GetAllLecturesById(string Id)
+        {
+            var id = Convert.ToInt32(Id);
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var lec = _context.Lectures.Where(l => l.Id == id).FirstOrDefault();
+
+            var lecture = new LectureModel
+            {
+                Id = lec.Id,
+                Name = lec.Name,
+                Content = lec.Content,
+                OwnerId = lec.OwnerId,
+                LectureFiles = GetAllLectureFilesById(lec.Id)
+            };
+
+            return lecture;
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetAllLectureFilesById")]
+        //GET : /api/Lecture/GetAllLectureFilesById
+        public List<LectureFile> GetAllLectureFilesById(int id)
+        {
+            var files = _context.LectureFiles.Where(f => f.LectureId == id);
+
+            var filesArr = new List<LectureFile>();
+
+            foreach (var item in files)
+            {
+                var f = new LectureFile();
+                f.Path = item.Path;
+                f.FileName = item.FileName;
+                filesArr.Add(f);
+            }
+
+            return filesArr;
+
+        }
+
+        [HttpDelete]
+        [Authorize]
+        [Route("Delete")]
+        //GET : /api/Lecture/Delete
+        public Lecture Delete(int id)
+        {
+            var deleteItem = _context.Lectures.FirstOrDefault(l => l.Id == id);
+            if (deleteItem != null)
+            {
+                _context.Lectures.Remove(deleteItem);
+                _context.SaveChanges();
+            }
+            return deleteItem;
         }
 
         [HttpPost]

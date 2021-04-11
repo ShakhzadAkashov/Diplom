@@ -1,8 +1,9 @@
 import { LectureFile } from "./LectureFile";
 
 export class Lecture {
-    Name: string;
-    Content: string;
-    OwnerId:string;
-    LectureFiles:LectureFile[];
+    id:number;
+    name: string;
+    content: string;
+    ownerId:string;
+    lectureFiles:LectureFile[];
 }

@@ -18,4 +18,13 @@ export class LectureService {
   getAll(){
     return this.http.get(this.BaseURI + '/Lecture/GetAllLecturesForUser');
   }
+
+  getById(Id){
+    return this.http.get(this.BaseURI + '/Lecture/GetAllLecturesById',{params: {id:Id}});
+  }
+
+  delete(Id){
+    return this.http.delete(this.BaseURI + '/Lecture/Delete',{params: {id:Id}});
+  }
+
 }

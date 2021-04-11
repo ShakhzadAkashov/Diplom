@@ -1,6 +1,6 @@
 export class LectureFile{
-    Id:number;
-    FileName:string;
-    Path:string;
-    LectureId:number;
+    id:number;
+    fileName:string;
+    path:string;
+    lectureId:number;
 }

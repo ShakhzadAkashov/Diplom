@@ -34,6 +34,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
 import { LectureComponent } from './lecture/lecture.component';
 import { LectureListComponent } from './lecture/lecture-list/lecture-list.component';
 import { TableModule } from 'primeng/table';
+import { ViewLectureModalComponent } from './lecture/view-lecture-modal/view-lecture-modal.component';
+import { ModalModule } from 'ngx-bootstrap/modal';;
 
 registerLocaleData(ru);
 
@@ -50,7 +52,8 @@ registerLocaleData(ru);
     FileUploadComponent,
     FileDownloadComponent,
     LectureComponent,
-    LectureListComponent
+    LectureListComponent,
+    ViewLectureModalComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,7 @@ registerLocaleData(ru);
     BrowserAnimationsModule,
     AngularEditorModule,
     TableModule,
+    ModalModule.forRoot(),
     ToastrModule.forRoot(),
     FormsModule
   ],
