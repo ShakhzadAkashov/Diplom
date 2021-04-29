@@ -42,6 +42,10 @@ import { TestService } from './shared/TestService/test-service.service';
 import { CreateOrEditTestComponent } from './test/create-or-edit-test/create-or-edit-test.component';
 import { TestingComponent } from './test/testing/testing.component';
 import { ViewTestModalComponent } from './test/view-test-modal/view-test-modal.component';
+import { SubjectComponent } from './subject/subject.component';
+import { SubjectService } from './shared/subjectService/subject-service.service';
+import { CreateOrEditSubjectComponent } from './subject/create-or-edit-subject/create-or-edit-subject.component';
+import { ViewSubjectModalComponent } from './subject/view-subject-modal/view-subject-modal.component';
 
 registerLocaleData(ru);
 
@@ -64,7 +68,10 @@ registerLocaleData(ru);
     TestListComponent,
     CreateOrEditTestComponent,
     TestingComponent,
-    ViewTestModalComponent
+    ViewTestModalComponent,
+    SubjectComponent,
+    CreateOrEditSubjectComponent,
+    ViewSubjectModalComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +91,12 @@ registerLocaleData(ru);
     ToastrModule.forRoot(),
     FormsModule
   ],
-  providers: [UserService,FileDownloadService,LectureService, TestService,{
+  providers: [
+    UserService,
+    FileDownloadService,
+    LectureService, 
+    TestService,
+    SubjectService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TestDiplom.Models.Lecture;
 using TestDiplom.Models.test;
+using TestDiplom.Models.Subject;
 
 namespace TestDiplom.Models
 {
@@ -22,5 +23,6 @@ namespace TestDiplom.Models
         public DbSet<Test> Tests { get; set; }
         public DbSet<TestQuestion> TestQuestions { get; set; }
         public DbSet<TestQuestionAnswer> TestQuestionAnswers { get; set; }
+        public DbSet<Subject.Subject> Subjects { get; set; }
     }
 }
