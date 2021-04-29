@@ -314,7 +314,7 @@ namespace TestDiplom.Controllers.test
         [HttpDelete]
         [Authorize]
         [Route("Delete")]
-        //GET : /api/Test/Delete
+        //Delete : /api/Test/Delete
         public async Task Delete(int id)
         {
             var deleteItem = await _context.Tests.FirstOrDefaultAsync(t => t.Id == id);
@@ -324,6 +324,92 @@ namespace TestDiplom.Controllers.test
                 _context.Tests.Remove(deleteItem);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("CheckTest")]
+        //GET : /api/Test/CheckTest
+
+        public async Task<double> CheckTest(TestModel test)
+        {
+            var t = await _context.Tests.Where(t => t.Id == test.Id).FirstOrDefaultAsync();
+
+            var testBase = new TestModel
+            {
+                Id = t.Id,
+                Name = t.Name,
+                IdForView = t.IdForView,
+                TestQuestions = GetAllTestQuestionById(t.Id)
+            };
+
+            for (int i = 0; i < testBase.TestQuestions.Count(); i++)
+            {
+                testBase.TestQuestions[i].TestQuestionAnswer = new List<TestQuestionAnswerModel>();
+
+                var answer = _context.TestQuestionAnswers.Where(t => t.TestQuestionId == testBase.TestQuestions[i].Id && t.IsCorrect == true);
+
+                foreach (var item in answer)
+                {
+                    var a = new TestQuestionAnswerModel();
+                    a.Name = item.Name;
+                    a.Id = item.Id;
+                    a.IsCorrect = item.IsCorrect;
+                    a.IdForView = item.IdForView;
+                    a.TestQuestionId = item.TestQuestionId;
+                    testBase.TestQuestions[i].TestQuestionAnswer.Add(a);
+                }
+            }
+
+            //CheckTest
+
+            double ball = 0;
+            double b1 = 100.0/test.TestQuestions.Count();
+
+            foreach (var i in testBase.TestQuestions)
+            {
+                foreach (var j in test.TestQuestions )
+                {
+                    if (i.Name == j.Name)
+                    {
+                        double lenght = i.TestQuestionAnswer.Count();
+                        double c = 1 / lenght;
+                        double b = 0.0;
+
+                        foreach (var ii in i.TestQuestionAnswer)
+                        {
+                            foreach (var jj in j.TestQuestionAnswer)
+                            {
+                                if (ii.Name == jj.Name)
+                                {
+                                    if (ii.IsCorrect == true && jj.IsCorrect == true)
+                                    {
+                                        b += 1;
+                                    }
+                                }
+                                else if (ii.Name != jj.Name)
+                                {
+                                    var trueVar = i.TestQuestionAnswer.Any(j => jj.Name == j.Name);
+                                    if (trueVar == false && jj.IsCorrect == true)
+                                    {
+                                        b = b - c;
+                                    }
+                                }
+                            }
+                        }
+
+                        double count  = 0.0;
+                        if(b > 0)
+                            count = b / lenght;
+
+                        ball += count;
+                    }
+                }
+            }
+            ball = ball * b1;
+
+            return ball;
+
         }
     }
 }

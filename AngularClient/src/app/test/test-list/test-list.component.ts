@@ -4,6 +4,7 @@ import { Test } from 'src/app/models/Test';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CreateOrEditTestComponent } from '../create-or-edit-test/create-or-edit-test.component';
+import { ViewTestModalComponent } from '../view-test-modal/view-test-modal.component';
  
 @Component({
   selector: 'app-test-list',
@@ -18,6 +19,7 @@ export class TestListComponent implements OnInit {
   test: Test = new Test();
   loading: boolean = true;
   @ViewChild('createOrEditTestModal', { static: true }) createOrEditTestModal: CreateOrEditTestComponent;
+  @ViewChild('viewTestModal', { static: true }) viewTestModal: ViewTestModalComponent;   
 
   ngOnInit(): void {
     this.getAll();
@@ -42,6 +44,10 @@ export class TestListComponent implements OnInit {
 
   editTest(id:number){
     this.router.navigate(['/home/lecture'], { queryParams: { id: id, edit:true } }).then(f => { location.reload(true) });
+  }
+
+  testing(id:number){
+    this.router.navigate(['/home/testing'], { queryParams: { id: id} }).then(f => { location.reload(true) });
   }
 
   deleteTestItem(id:number){

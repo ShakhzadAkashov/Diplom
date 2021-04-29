@@ -40,6 +40,8 @@ import { TestComponent } from './test/test.component';
 import { TestListComponent } from './test/test-list/test-list.component';
 import { TestService } from './shared/TestService/test-service.service';
 import { CreateOrEditTestComponent } from './test/create-or-edit-test/create-or-edit-test.component';
+import { TestingComponent } from './test/testing/testing.component';
+import { ViewTestModalComponent } from './test/view-test-modal/view-test-modal.component';
 
 registerLocaleData(ru);
 
@@ -60,7 +62,9 @@ registerLocaleData(ru);
     ViewLectureModalComponent,
     TestComponent,
     TestListComponent,
-    CreateOrEditTestComponent
+    CreateOrEditTestComponent,
+    TestingComponent,
+    ViewTestModalComponent
   ],
   imports: [
     BrowserModule,

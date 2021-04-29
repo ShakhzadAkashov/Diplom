@@ -29,4 +29,8 @@ export class TestService {
   delete(Id){
     return this.http.delete(this.BaseURI + '/Test/Delete',{params: {id:Id}});
   }
+
+  checkTest(test:Test){
+    return this.http.post(this.BaseURI + '/Test/CheckTest',test);
+  }
 }
