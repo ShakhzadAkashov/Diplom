@@ -83,6 +83,10 @@
                     <label>Birthday</label>
                     <input type="date" [readonly]="!editMode" class="form-control">
                 </div>
+                <div class="form-group">
+                    <label>PhoneNumber</label>
+                    <input class="form-control" [readonly]="!editMode" [(ngModel)]="userDetails.phoneNumber">
+                </div>
             </div>
         </div>
     </div>

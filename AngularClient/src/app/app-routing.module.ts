@@ -14,6 +14,7 @@ import { TestListComponent } from './test/test-list/test-list.component';
 import { TestComponent } from './test/test.component';
 import {TestingComponent} from './test/testing/testing.component';
 import { SubjectComponent } from './subject/subject.component';
+import { UsersComponent } from './admin/users/users.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/user/login', pathMatch:'full'},
@@ -32,7 +33,8 @@ const routes: Routes = [
     {path: 'testList', component: TestListComponent, canActivate:[AuthGuard] },
     {path: 'test', component: TestComponent, canActivate:[AuthGuard] },
     {path: 'testing', component: TestingComponent, canActivate:[AuthGuard] },
-    {path: 'subject', component: SubjectComponent, canActivate:[AuthGuard] }
+    {path: 'subject', component: SubjectComponent, canActivate:[AuthGuard] },
+    {path: 'admin/users', component: UsersComponent, canActivate:[AuthGuard] }
   ]},
   //{path: 'forbidden', component: ForbiddenComponent},
   {path: 'adminpanel', component: AdminPanelComponent, canActivate:[AuthGuard], data: {permittedRoles:['Admin']}}

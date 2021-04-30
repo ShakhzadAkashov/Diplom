@@ -46,6 +46,9 @@ import { SubjectComponent } from './subject/subject.component';
 import { SubjectService } from './shared/subjectService/subject-service.service';
 import { CreateOrEditSubjectComponent } from './subject/create-or-edit-subject/create-or-edit-subject.component';
 import { ViewSubjectModalComponent } from './subject/view-subject-modal/view-subject-modal.component';
+import { UsersComponent } from './admin/users/users.component';
+import { CreateOrEditUsersModalComponent } from './admin/users/create-or-edit-users-modal/create-or-edit-users-modal.component';
+import { ViewUsersModalComponent } from './admin/users/view-users-modal/view-users-modal.component';
 
 registerLocaleData(ru);
 
@@ -71,7 +74,10 @@ registerLocaleData(ru);
     ViewTestModalComponent,
     SubjectComponent,
     CreateOrEditSubjectComponent,
-    ViewSubjectModalComponent
+    ViewSubjectModalComponent,
+    UsersComponent,
+    CreateOrEditUsersModalComponent,
+    ViewUsersModalComponent
   ],
   imports: [
     BrowserModule,
