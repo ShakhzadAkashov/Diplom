@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using TestDiplom.Models.Lecture;
 using TestDiplom.Models.test;
 using TestDiplom.Models.Subject;
+using TestDiplom.Models.Practice;
 
 namespace TestDiplom.Models
 {
@@ -24,5 +25,7 @@ namespace TestDiplom.Models
         public DbSet<TestQuestion> TestQuestions { get; set; }
         public DbSet<TestQuestionAnswer> TestQuestionAnswers { get; set; }
         public DbSet<Subject.Subject> Subjects { get; set; }
+        public DbSet<Practice.Practice> Practices { get; set; }
+        public DbSet<PracticeFiles> PracticeFiles { get; set; }
     }
 }

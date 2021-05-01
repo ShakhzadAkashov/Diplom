@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestDiplom.Models;
 
 namespace TestDiplom.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20210501142041_Added Practice")]
+    partial class AddedPractice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -287,29 +289,6 @@ namespace TestDiplom.Migrations
                     b.ToTable("Practices");
                 });
 
-            modelBuilder.Entity("TestDiplom.Models.Practice.PracticeFiles", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Path")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PracticeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PracticeId");
-
-                    b.ToTable("PracticeFiles");
-                });
-
             modelBuilder.Entity("TestDiplom.Models.Subject.Subject", b =>
                 {
                     b.Property<int>("Id")
@@ -494,17 +473,6 @@ namespace TestDiplom.Migrations
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("OwnerFk");
-                });
-
-            modelBuilder.Entity("TestDiplom.Models.Practice.PracticeFiles", b =>
-                {
-                    b.HasOne("TestDiplom.Models.Practice.Practice", "PracticeFk")
-                        .WithMany()
-                        .HasForeignKey("PracticeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PracticeFk");
                 });
 
             modelBuilder.Entity("TestDiplom.Models.test.Test", b =>

@@ -15,6 +15,7 @@ import { TestComponent } from './test/test.component';
 import {TestingComponent} from './test/testing/testing.component';
 import { SubjectComponent } from './subject/subject.component';
 import { UsersComponent } from './admin/users/users.component';
+import { PracticeListComponent } from './practice/practice-list/practice-list.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/user/login', pathMatch:'full'},
@@ -34,6 +35,7 @@ const routes: Routes = [
     {path: 'test', component: TestComponent, canActivate:[AuthGuard] },
     {path: 'testing', component: TestingComponent, canActivate:[AuthGuard] },
     {path: 'subject', component: SubjectComponent, canActivate:[AuthGuard] },
+    {path: 'practice', component: PracticeListComponent, canActivate:[AuthGuard] },
     {path: 'admin/users', component: UsersComponent, canActivate:[AuthGuard] }
   ]},
   //{path: 'forbidden', component: ForbiddenComponent},

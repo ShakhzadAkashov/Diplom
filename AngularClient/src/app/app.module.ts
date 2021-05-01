@@ -49,6 +49,12 @@ import { ViewSubjectModalComponent } from './subject/view-subject-modal/view-sub
 import { UsersComponent } from './admin/users/users.component';
 import { CreateOrEditUsersModalComponent } from './admin/users/create-or-edit-users-modal/create-or-edit-users-modal.component';
 import { ViewUsersModalComponent } from './admin/users/view-users-modal/view-users-modal.component';
+import { PracticeComponent } from './practice/practice.component';
+import { PracticeListComponent } from './practice/practice-list/practice-list.component';
+import { PracticeService } from './shared/practiceService/practice-service.service';
+import { CreateOrEditPracticeModalComponent } from './practice/create-or-edit-practice-modal/create-or-edit-practice-modal.component';
+import { ViewPracticeFileModalComponent } from './practice/view-practice-file-modal/view-practice-file-modal.component';
+import { ViewPracticeModalComponent } from './practice/view-practice-modal/view-practice-modal.component';
 
 registerLocaleData(ru);
 
@@ -77,7 +83,12 @@ registerLocaleData(ru);
     ViewSubjectModalComponent,
     UsersComponent,
     CreateOrEditUsersModalComponent,
-    ViewUsersModalComponent
+    ViewUsersModalComponent,
+    PracticeComponent,
+    PracticeListComponent,
+    CreateOrEditPracticeModalComponent,
+    ViewPracticeFileModalComponent,
+    ViewPracticeModalComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +113,8 @@ registerLocaleData(ru);
     FileDownloadService,
     LectureService, 
     TestService,
-    SubjectService,{
+    SubjectService,
+    PracticeService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
