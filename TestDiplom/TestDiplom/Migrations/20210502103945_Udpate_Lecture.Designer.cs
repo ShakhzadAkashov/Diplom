@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestDiplom.Models;
 
 namespace TestDiplom.Migrations
 {
     [DbContext(typeof(AuthenticationContext))]
-    partial class AuthenticationContextModelSnapshot : ModelSnapshot
+    [Migration("20210502103945_Udpate_Lecture")]
+    partial class Udpate_Lecture
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,22 +239,12 @@ namespace TestDiplom.Migrations
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("PracticeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("TestId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
-
-                    b.HasIndex("PracticeId");
-
-                    b.HasIndex("SubjectId");
 
                     b.HasIndex("TestId");
 
@@ -295,14 +287,9 @@ namespace TestDiplom.Migrations
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
-
-                    b.HasIndex("SubjectId");
 
                     b.ToTable("Practices");
                 });
@@ -364,14 +351,9 @@ namespace TestDiplom.Migrations
                     b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
-
-                    b.HasIndex("SubjectId");
 
                     b.ToTable("Tests");
                 });
@@ -498,26 +480,12 @@ namespace TestDiplom.Migrations
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
-                    b.HasOne("TestDiplom.Models.Practice.Practice", "PracticeFk")
-                        .WithMany()
-                        .HasForeignKey("PracticeId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("TestDiplom.Models.Subject.Subject", "SubjectFk")
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.HasOne("TestDiplom.Models.test.Test", "TestFk")
                         .WithMany()
                         .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("OwnerFk");
-
-                    b.Navigation("PracticeFk");
-
-                    b.Navigation("SubjectFk");
 
                     b.Navigation("TestFk");
                 });
@@ -539,14 +507,7 @@ namespace TestDiplom.Migrations
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
-                    b.HasOne("TestDiplom.Models.Subject.Subject", "SubjectFk")
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("OwnerFk");
-
-                    b.Navigation("SubjectFk");
                 });
 
             modelBuilder.Entity("TestDiplom.Models.Practice.PracticeFiles", b =>
@@ -566,14 +527,7 @@ namespace TestDiplom.Migrations
                         .WithMany()
                         .HasForeignKey("OwnerId");
 
-                    b.HasOne("TestDiplom.Models.Subject.Subject", "SubjectFk")
-                        .WithMany()
-                        .HasForeignKey("SubjectId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("OwnerFk");
-
-                    b.Navigation("SubjectFk");
                 });
 
             modelBuilder.Entity("TestDiplom.Models.test.TestQuestion", b =>

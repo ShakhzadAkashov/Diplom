@@ -5,6 +5,7 @@ import { PracticeService } from 'src/app/shared/practiceService/practice-service
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 import { PracticeFile } from 'src/app/models/PracticiFile';
+import { SubjectLookupTableModalComponent } from 'src/app/common/subject-lookup-table-modal/subject-lookup-table-modal.component';
 
 @Component({
   selector: 'app-create-or-edit-practice-modal',
@@ -14,6 +15,7 @@ import { PracticeFile } from 'src/app/models/PracticiFile';
 export class CreateOrEditPracticeModalComponent implements OnInit {
 
   @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
+  @ViewChild('subjectLookupTableModal', { static: true }) subjectLookupTableModal: SubjectLookupTableModalComponent; 
   @Output() modalSave: EventEmitter<Practice> = new EventEmitter<Practice>();
 
   active = false;
@@ -50,6 +52,8 @@ export class CreateOrEditPracticeModalComponent implements OnInit {
         //this.test = test;
         this.practiceTemp.name = practice.name;
         this.practiceTemp.practiceFiles = practice.practiceFiles;
+        this.practiceTemp.subjectId = practice.subjectId;
+        this.practiceTemp.subjectName = practice.subjectName;
         this.edit = true;
         this.active = true;
         this.modal.show();
@@ -89,9 +93,27 @@ export class CreateOrEditPracticeModalComponent implements OnInit {
     if(this.edit == true && this.saving == false){
       this.practice.name = this.practiceTemp.name;
       this.practice.practiceFiles = this.practiceTemp.practiceFiles;
+      this.practice.subjectId = this.practiceTemp.subjectId;
+      this.practice.subjectName = this.practiceTemp.subjectName;
     }
         
     this.active = false;
     this.modal.hide();
+  }
+
+  openSelectSubjectModal(){
+    this.subjectLookupTableModal.id = null;
+    this.subjectLookupTableModal.displayName = '';
+    this.subjectLookupTableModal.show();
+  }
+
+  selectSubject(){
+    this.practice.subjectId = this.subjectLookupTableModal.id;
+		this.practice.subjectName = this.subjectLookupTableModal.displayName;
+  }
+
+  deleteSubject(){
+    this.practice.subjectId = null;
+		this.practice.subjectName = null;
   }
 }

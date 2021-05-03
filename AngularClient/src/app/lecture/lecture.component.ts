@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { Lecture } from '../models/Lecture';
 import { LectureFile } from '../models/LectureFile';
 import { LectureService } from '../shared/lectureService/lecture.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router,ActivatedRoute } from '@angular/router';
+import { TestLookupTableModalComponent } from '../common/test-lookup-table-modal/test-lookup-table-modal.component';
+import { SubjectLookupTableModalComponent } from '../common/subject-lookup-table-modal/subject-lookup-table-modal.component';
+import { PracticeLookupTableModalComponent } from '../common/practice-lookup-table-modal/practice-lookup-table-modal.component';
 
 @Component({
   selector: 'app-lecture',
@@ -66,6 +69,10 @@ export class LectureComponent implements OnInit {
     this.editModeBool = this._activatedRoute.snapshot.queryParams['edit'];
   }
 
+  @ViewChild('testLookupTableModal', { static: true }) testLookupTableModal: TestLookupTableModalComponent; 
+  @ViewChild('subjectLookupTableModal', { static: true }) subjectLookupTableModal: SubjectLookupTableModalComponent; 
+  @ViewChild('practiceLookupTableModal', { static: true }) practiceLookupTableModal: PracticeLookupTableModalComponent; 
+
   lecture: Lecture = new Lecture();
   lectureFiles:LectureFile[] = [];
   public response : {dbPath : ''}
@@ -121,6 +128,61 @@ export class LectureComponent implements OnInit {
       this.lecture = res;
       this.lectureFiles = res.lectureFiles;
     });
+  }
+
+  openSelectTestModal(){
+      this.testLookupTableModal.id = null;
+			this.testLookupTableModal.displayName = '';
+			this.testLookupTableModal.show();
+  }
+
+  selectTest(){
+    this.lecture.testId = this.testLookupTableModal.id;
+		this.lecture.testName = this.testLookupTableModal.displayName;
+  }
+
+  openSelectSubjectModal(){
+    this.subjectLookupTableModal.id = null;
+    this.subjectLookupTableModal.displayName = '';
+    this.subjectLookupTableModal.show();
+  }
+
+  selectSubject(){
+    this.lecture.subjectId = this.subjectLookupTableModal.id;
+		this.lecture.subjectName = this.subjectLookupTableModal.displayName;
+  }
+
+  openSelectPracticeModal(){
+    this.practiceLookupTableModal.id = null;
+    this.practiceLookupTableModal.displayName = '';
+    this.practiceLookupTableModal.show();
+  }
+
+  selectPractice(){
+    this.lecture.practiceId = this.practiceLookupTableModal.id;
+		this.lecture.practiceName = this.practiceLookupTableModal.displayName;
+  }
+
+  deletePractice(){
+    this.lecture.practiceId = null;
+		this.lecture.practiceName = null;
+  }
+
+  deleteTest(){
+    this.lecture.subjectId = null;
+		this.lecture.subjectName = null;
+  }
+
+  deleteSubject(){
+    this.lecture.subjectId = null;
+		this.lecture.subjectName = null;
+  }
+
+  RedirectToTest(){
+    this.router.navigate(['/home/testing'], { queryParams: { id: this.lecture.testId} }).then(f => { location.reload(true) });
+  }
+
+  RedirectToPractice(){
   }
 }
 

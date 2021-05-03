@@ -18,6 +18,10 @@ export class TestService {
     return this.http.post(this.BaseURI + '/Test/CreateOrEdit',test);
   }
 
+  getAll(){
+    return this.http.get(this.BaseURI + '/Test/GetAll');
+  }
+
   getAllforUser(){
     return this.http.get(this.BaseURI + '/Test/GetAllForUser');
   }

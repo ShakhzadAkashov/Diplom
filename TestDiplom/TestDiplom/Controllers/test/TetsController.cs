@@ -50,6 +50,7 @@ namespace TestDiplom.Controllers.test
 
             updateTest.Name = model.Name;
             updateTest.IdForView = model.IdForView;
+            updateTest.SubjectId = model.SubjectId;
 
             var d = await _context.TestQuestions.Where(t => t.TestId == model.Id).ToListAsync();
 
@@ -103,6 +104,7 @@ namespace TestDiplom.Controllers.test
             {
                 Name = model.Name,
                 OwnerId = userId,
+                SubjectId = model.SubjectId,
                 IdForView = model.IdForView
             };
             try
@@ -229,15 +231,18 @@ namespace TestDiplom.Controllers.test
 
         public async Task<TestModel> GetById(int id)
         {
-            var test = await _context.Tests.Where(t => t.Id == id).FirstOrDefaultAsync();
+            //var test = await _context.Tests.Where(t => t.Id == id).FirstOrDefaultAsync();
+            var test = await _context.Tests.Include(t => t.SubjectFk).Where(t => t.Id == id).FirstOrDefaultAsync();
 
-            var ret = new TestModel
-            {
-                Id = test.Id,
-                Name = test.Name,
-                IdForView = test.IdForView,
-                TestQuestions = GetAllTestQuestionById(test.Id)
-            };
+            var ret = new TestModel();
+
+            ret.Id = test.Id;
+            ret.Name = test.Name;
+            ret.IdForView = test.IdForView;
+            ret.SubjectId = test.SubjectId;
+            ret.SubjectName = test.SubjectFk == null ? "" : test.SubjectFk.Name;
+            ret.TestQuestions = GetAllTestQuestionById(test.Id);
+            
             return ret;
         }
 
@@ -281,6 +286,32 @@ namespace TestDiplom.Controllers.test
 
             return answerArr;
 
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetAll")]
+        //GET : /api/Test/GetAll
+        public async Task<List<TestModel>> GetAll()
+        {
+            var lst = await _context.Tests.ToListAsync();
+
+            var tests = new List<TestModel>();
+
+            foreach (var item in lst)
+            {
+                var test = new TestModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    IdForView = item.IdForView
+
+                };
+
+                tests.Add(test);
+            }
+
+            return tests;
         }
 
         [HttpGet]

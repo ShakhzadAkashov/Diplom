@@ -5,5 +5,7 @@ export class Test{
     idForView:number;
     name: string;
     ownerId:string;
+    subjectId: number;
+    subjectName: string;
     testQuestions: TestQuestion[];
 }

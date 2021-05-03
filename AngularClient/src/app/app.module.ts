@@ -55,6 +55,9 @@ import { PracticeService } from './shared/practiceService/practice-service.servi
 import { CreateOrEditPracticeModalComponent } from './practice/create-or-edit-practice-modal/create-or-edit-practice-modal.component';
 import { ViewPracticeFileModalComponent } from './practice/view-practice-file-modal/view-practice-file-modal.component';
 import { ViewPracticeModalComponent } from './practice/view-practice-modal/view-practice-modal.component';
+import { TestLookupTableModalComponent } from './common/test-lookup-table-modal/test-lookup-table-modal.component';
+import { SubjectLookupTableModalComponent } from './common/subject-lookup-table-modal/subject-lookup-table-modal.component';
+import { PracticeLookupTableModalComponent } from './common/practice-lookup-table-modal/practice-lookup-table-modal.component';
 
 registerLocaleData(ru);
 
@@ -88,7 +91,10 @@ registerLocaleData(ru);
     PracticeListComponent,
     CreateOrEditPracticeModalComponent,
     ViewPracticeFileModalComponent,
-    ViewPracticeModalComponent
+    ViewPracticeModalComponent,
+    TestLookupTableModalComponent,
+    SubjectLookupTableModalComponent,
+    PracticeLookupTableModalComponent
   ],
   imports: [
     BrowserModule,

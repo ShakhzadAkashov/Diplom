@@ -1,4 +1,32 @@
 <div class="row">
+    <div class="col-md-12" *ngIf="viewMode && lecture.subjectId != null">
+        <div class="form-group">
+            <label>Навзание предмета</label>
+            <input class="form-control" [(ngModel)]="lecture.subjectName"
+             [readonly]="viewMode">
+        </div>
+    </div>
+    <div class="col-md-12" *ngIf="!viewMode">
+        <div class="form-group">
+            <label>Прикрепить к предмету. Название предмета</label>
+            <div class="input-group">
+                <input class="form-control" [(ngModel)]="lecture.subjectName"
+                (click)="openSelectSubjectModal()" readonly>
+            
+             <span class="input-group-btn">
+                <button (click)="openSelectSubjectModal()" class="btn btn-outline-primary"
+                    type="submit"> <i class="fa fa-search"></i> Выбрать</button>
+            </span>
+            <span class="input-group-btn">
+                <button (click)="deleteSubject()" class="btn btn-outline-danger"
+                    type="submit"> <i class="fa fa-trash"></i> Удалить</button>
+            </span>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-12">
         <div class="form-group">
             <label>Название</label>
@@ -40,10 +68,67 @@
             <a>
                 {{file.fileName}}
                 <app-download [fileName]="file.fileName"></app-download>
-                <button *ngIf="!viewMode" class="btn btn-outline-danger ml-3" (click)="delete(file.fileName)"><i class="fas fa-trash-alt"></i> Delete</button>
+                <button *ngIf="!viewMode" class="btn btn-outline-danger ml-3" (click)="delete(file.fileName)"><i class="fa fa-trash"></i> Delete</button>
             </a>
         </li>
     </ul>
+</div>
+<div class="row">
+    <div class="col-md-12" *ngIf="viewMode && lecture.testId != null">
+        <div class="form-group">
+            <label>Навзание теста</label>
+            <input class="form-control" [(ngModel)]="lecture.testName"
+             [readonly]="viewMode">
+        </div>
+        <button class="btn btn-outline-primary" (click)="RedirectToTest()"><i class="fa fa-external-link"></i> Перейти к тестированию</button>
+    </div>
+    <div class="col-md-12" *ngIf="!viewMode">
+        <div class="form-group">
+            <label>Прикрепить тест. Название теста</label>
+            <div class="input-group">
+                <input class="form-control" [(ngModel)]="lecture.testName"
+                (click)="openSelectTestModal()" readonly>
+            
+             <span class="input-group-btn">
+                <button (click)="openSelectTestModal()" class="btn btn-outline-primary"
+                    type="submit"> <i class="fa fa-search"></i> Выбрать</button>
+            </span>
+            <span class="input-group-btn">
+                <button (click)="deleteTest()" class="btn btn-outline-danger"
+                    type="submit"> <i class="fa fa-trash"></i> Удалить</button>
+            </span>
+        </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" *ngIf="viewMode && lecture.practiceId != null">
+        <div class="form-group">
+            <label>Навзание практического задания</label>
+            <input class="form-control" [(ngModel)]="lecture.practiceName"
+             [readonly]="viewMode">
+        </div>
+        <button class="btn btn-outline-primary" (click)="RedirectToPractice()"><i class="fa fa-external-link"></i> Перейти к практическому заданию</button>
+    </div>
+    <div class="col-md-12" *ngIf="!viewMode">
+        <div class="form-group">
+            <label>Прикрепить практическое задание. Название практического задания</label>
+            <div class="input-group">
+                <input class="form-control" [(ngModel)]="lecture.practiceName"
+                (click)="openSelectPracticeModal()" readonly>
+            
+             <span class="input-group-btn">
+                <button (click)="openSelectPracticeModal()" class="btn btn-outline-primary"
+                    type="submit"> <i class="fa fa-search"></i> Выбрать</button>
+            </span>
+            <span class="input-group-btn">
+                <button (click)="deletePractice()" class="btn btn-outline-danger"
+                    type="submit"> <i class="fa fa-trash"></i> Удалить</button>
+            </span>
+        </div>
+        </div>
+    </div>
 </div>
 <div class="row" *ngIf="!viewMode">
     <div class="col-md-12">
@@ -52,3 +137,7 @@
         </div>
     </div>
 </div>
+
+<app-test-lookup-table-modal #testLookupTableModal (modalSave)="selectTest()"></app-test-lookup-table-modal>
+<app-subject-lookup-table-modal #subjectLookupTableModal (modalSave)="selectSubject()"></app-subject-lookup-table-modal>
+<app-practice-lookup-table-modal #practiceLookupTableModal (modalSave)="selectPractice()"></app-practice-lookup-table-modal>

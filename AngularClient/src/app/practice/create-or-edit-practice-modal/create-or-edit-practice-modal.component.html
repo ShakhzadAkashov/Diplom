@@ -12,6 +12,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <div class="row">
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Прикрепить к предмету. Название предмета</label>
+                                <div class="input-group">
+                                    <input class="form-control" [(ngModel)]="practice.subjectName" (click)="openSelectSubjectModal()" readonly name="subjectName" required>
+                                
+                                    <span class="input-group-btn">
+                                        <button (click)="openSelectSubjectModal()" class="btn btn-outline-primary" type="submit"> <i
+                                                class="fa fa-search"></i> Выбрать</button>
+                                    </span>
+                                    <span class="input-group-btn">
+                                        <button (click)="deleteSubject()" class="btn btn-outline-danger" type="submit"> <i class="fa fa-trash"></i>
+                                            Удалить</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="practiceName" style="font-size: 1.1rem;">Название практического задания: *</label>
                         <input type="text" id="practiceName" class="form-control mb-2" [(ngModel)]="practice.name" name="practiceName" required />
@@ -51,5 +72,5 @@
     </div>
 
 </div>
-
+<app-subject-lookup-table-modal #subjectLookupTableModal (modalSave)="selectSubject()"></app-subject-lookup-table-modal>
 

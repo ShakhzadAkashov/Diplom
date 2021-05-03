@@ -50,6 +50,9 @@ namespace TestDiplom.Controllers.lecture
 
             updateLecture.Name = model.Name;
             updateLecture.Content = model.Content;
+            updateLecture.TestId = model.TestId;
+            updateLecture.SubjectId = model.SubjectId;
+            updateLecture.PracticeId = model.PracticeId;
 
             await DeleteLecFiles(model.Id);
 
@@ -94,16 +97,27 @@ namespace TestDiplom.Controllers.lecture
             var id = Convert.ToInt32(Id);
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
-            var lec = _context.Lectures.Where(l => l.Id == id).FirstOrDefault();
+            //var lec = _context.Lectures.Where(l => l.Id == id).FirstOrDefault();
 
-            var lecture = new LectureModel
-            {
-                Id = lec.Id,
-                Name = lec.Name,
-                Content = lec.Content,
-                OwnerId = lec.OwnerId,
-                LectureFiles = GetAllLectureFilesById(lec.Id)
-            };
+            var lec = _context.Lectures
+                .Include(l => l.TestFk)
+                .Include(l => l.SubjectFk)
+                .Include(l => l.PracticeFk)
+                .Where(l => l.Id == id).FirstOrDefault();
+
+            var lecture = new LectureModel();
+
+            lecture.Id = lec.Id;
+            lecture.Name = lec.Name;
+            lecture.Content = lec.Content;
+            lecture.OwnerId = lec.OwnerId;
+            lecture.TestId = lec.TestId;
+            lecture.TestName =lec.TestFk == null ? "" : lec.TestFk.Name;
+            lecture.PracticeId = lec.PracticeId;
+            lecture.PracticeName = lec.PracticeFk == null ? "" : lec.PracticeFk.Name;
+            lecture.SubjectId = lec.SubjectId;
+            lecture.SubjectName = lec.SubjectFk == null ? "" : lec.SubjectFk.Name;
+            lecture.LectureFiles = GetAllLectureFilesById(lec.Id);
 
             return lecture;
         }
@@ -169,6 +183,9 @@ namespace TestDiplom.Controllers.lecture
                 Name = model.Name,
                 Content = model.Content,
                 OwnerId = userId,
+                TestId = model.TestId,
+                PracticeId = model.PracticeId,
+                SubjectId = model.SubjectId
             };
             try
             {

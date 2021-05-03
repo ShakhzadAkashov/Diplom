@@ -40,6 +40,30 @@ namespace TestDiplom.Controllers.practice
 
         [HttpGet]
         [Authorize]
+        [Route("GetAll")]
+        //GET : /api/Practice/GetAll
+        public async Task<List<PracticeModel>> GetAll()
+        {
+            var lst = await _context.Practices.ToListAsync();
+
+            var practices = new List<PracticeModel>();
+
+            foreach (var item in lst)
+            {
+                var practice = new PracticeModel
+                {
+                    Id = item.Id,
+                    Name = item.Name
+                };
+
+                practices.Add(practice);
+            }
+
+            return practices;
+        }
+
+        [HttpGet]
+        [Authorize]
         [Route("GetAllPracticeForUser")]
         //GET : /api/Practice/GetAllPracticeForUser
         public List<PracticeModel> GetAllPracticeForUser()
@@ -74,15 +98,17 @@ namespace TestDiplom.Controllers.practice
             var id = Convert.ToInt32(Id);
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
-            var prac = await _context.Practices.Where(p => p.Id == id).FirstOrDefaultAsync();
+            //var prac = await _context.Practices.Where(p => p.Id == id).FirstOrDefaultAsync();
+            var prac = await _context.Practices.Include(p => p.SubjectFk).Where(p => p.Id == id).FirstOrDefaultAsync();
 
-            var practice = new PracticeModel
-            {
-                Id = prac.Id,
-                Name = prac.Name,
-                OwnerId = prac.OwnerId,
-                PracticeFiles = GetAllPracticeFilesById(prac.Id)
-            };
+            var practice = new PracticeModel();
+
+            practice.Id = prac.Id;
+            practice.Name = prac.Name;
+            practice.OwnerId = prac.OwnerId;
+            practice.SubjectId = prac.SubjectId;
+            practice.SubjectName = prac.SubjectFk == null ? "" : prac.SubjectFk.Name;
+            practice.PracticeFiles = GetAllPracticeFilesById(prac.Id);
 
             return practice;
         }
@@ -121,6 +147,7 @@ namespace TestDiplom.Controllers.practice
             {
                 Name = model.Name,
                 OwnerId = userId,
+                SubjectId = model.SubjectId
             };
             try
             {
@@ -166,6 +193,7 @@ namespace TestDiplom.Controllers.practice
             var updatePractice = await _context.Practices.FirstOrDefaultAsync(p => p.Id == model.Id);
 
             updatePractice.Name = model.Name;
+            updatePractice.SubjectId = model.SubjectId;
 
             await DeletePracticeFiles(model.Id);
 

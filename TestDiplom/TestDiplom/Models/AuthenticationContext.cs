@@ -27,5 +27,36 @@ namespace TestDiplom.Models
         public DbSet<Subject.Subject> Subjects { get; set; }
         public DbSet<Practice.Practice> Practices { get; set; }
         public DbSet<PracticeFiles> PracticeFiles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Lecture.Lecture>()
+                .HasOne(l=>l.TestFk)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Lecture.Lecture>()
+                .HasOne(l => l.SubjectFk)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Lecture.Lecture>()
+                .HasOne(l => l.PracticeFk)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Practice.Practice>()
+                .HasOne(l => l.SubjectFk)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Test>()
+                .HasOne(l => l.SubjectFk)
+                .WithMany()
+                .OnDelete(DeleteBehavior.SetNull);
+
+            base.OnModelCreating(modelBuilder);
+
+        }
     }
 }
