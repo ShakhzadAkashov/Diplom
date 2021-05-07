@@ -89,6 +89,66 @@ namespace TestDiplom.Controllers.lecture
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("GetAllLecturesForAdmin")]
+        //GET : /api/Lecture/GetAllLecturesForAdmin
+        public async  Task<List<LectureModel>> GetAllLecturesForAdmin()
+        {
+            var list = await _context.Lectures.ToListAsync();
+
+            var lst = new List<LectureModel>();
+
+            foreach (var item in list)
+            {
+                var lecture = new LectureModel();
+
+                lecture.Id = item.Id;
+                lecture.Name = item.Name;
+                lecture.OwnerId = item.OwnerId;
+                lecture.LectureFiles = GetAllLectureFilesById(item.Id);
+
+                lst.Add(lecture);
+            }
+
+            return lst;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Student")]
+        [Route("GetAllLecturesForStudent")]
+        //GET : /api/Lecture/GetAllLecturesForStudent
+        public async Task<List<LectureModel>> GetAllLecturesForStudent()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var subjects = await _context.StudentSubjects.Where(s => s.StudentId == userId && s.IsSubscribe == true).ToListAsync();
+
+            var lst = new List<LectureModel>();
+
+            foreach (var s in subjects)
+            {
+                var list = await _context.Lectures.Include(l => l.SubjectFk).Where(l => l.SubjectId == s.SubjectId).ToListAsync();
+
+                foreach (var item in list)
+                {
+                    var lecture = new LectureModel();
+
+                    lecture.Id = item.Id;
+                    lecture.Name = item.Name;
+                    lecture.OwnerId = item.OwnerId;
+                    lecture.SubjectName = item.SubjectFk.Name;
+                    lecture.PracticeId = item.PracticeId;
+                    lecture.TestId = item.TestId;
+                    lecture.LectureFiles = GetAllLectureFilesById(item.Id);
+
+                    lst.Add(lecture);
+                }
+            }
+
+            return lst;
+        }
+
+        [HttpGet]
         [Authorize]
         [Route("GetAllLecturesById")]
         //GET : /api/Lecture/GetAllLecturesById

@@ -32,6 +32,8 @@ namespace TestDiplom.Controllers
 
             var user = await _userManager.FindByIdAsync(userId);
 
+            var role = await _userManager.GetRolesAsync(user);
+
             var a = new ApplicationUserModel
             {
                 FullName = user.FullName,
@@ -39,7 +41,8 @@ namespace TestDiplom.Controllers
                 UserName = user.UserName,
                 PhoneNumber = user.PhoneNumber,
                 IsBlocked = user.IsBlocked,
-                ImgPath = user.ImgPath
+                ImgPath = user.ImgPath,
+                Role = role.Count > 0 ? role.FirstOrDefault() : null
             };
 
             return a;
@@ -188,6 +191,28 @@ namespace TestDiplom.Controllers
             {
                 await _userManager.DeleteAsync(deleteItem);
             }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Teacher")]
+        [Route("ForTeacher")]
+        public string GetForTeacher()
+        {
+            return "Web method for Teacher";
+        }
+        [HttpGet]
+        [Authorize(Roles = "Student")]
+        [Route("ForStudent")]
+        public string GetForStudent()
+        {
+            return "Web method for Student";
+        }
+        [HttpGet]
+        [Authorize(Roles = "Teacher, Student")]
+        [Route("ForTeacherOrStudent")]
+        public string GetForTeacherOrStudent()
+        {
+            return "Web method for Teacher or Student";
         }
 
     }

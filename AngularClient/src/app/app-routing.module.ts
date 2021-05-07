@@ -16,6 +16,9 @@ import {TestingComponent} from './test/testing/testing.component';
 import { SubjectComponent } from './subject/subject.component';
 import { UsersComponent } from './admin/users/users.component';
 import { PracticeListComponent } from './practice/practice-list/practice-list.component';
+import { StudentSubjectComponent } from './student-subject/student-subject.component';
+import { StudentLectureComponent } from './lecture/student-lecture/student-lecture.component';
+import { StudentTestComponent } from './test/student-test/student-test.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/user/login', pathMatch:'full'},
@@ -31,10 +34,13 @@ const routes: Routes = [
     {path: 'cabinet', component: CabinetComponent, canActivate:[AuthGuard] },
     {path: 'lecture', component: LectureComponent, canActivate:[AuthGuard] },
     {path: 'lectureList', component: LectureListComponent, canActivate:[AuthGuard] },
+    {path: 'studentLecture', component: StudentLectureComponent, canActivate:[AuthGuard] },
     {path: 'testList', component: TestListComponent, canActivate:[AuthGuard] },
     {path: 'test', component: TestComponent, canActivate:[AuthGuard] },
+    {path: 'studentTest', component: StudentTestComponent, canActivate:[AuthGuard] },
     {path: 'testing', component: TestingComponent, canActivate:[AuthGuard] },
     {path: 'subject', component: SubjectComponent, canActivate:[AuthGuard] },
+    {path: 'studentSubject', component: StudentSubjectComponent, canActivate:[AuthGuard] },
     {path: 'practice', component: PracticeListComponent, canActivate:[AuthGuard] },
     {path: 'admin/users', component: UsersComponent, canActivate:[AuthGuard] }
   ]},

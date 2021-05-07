@@ -9,7 +9,7 @@
                 <button class="btn btn-md btn-outline-primary ml-3" (click)="getAll()"><i class="fa fa-refresh"></i> Обновить</button>
             </span>
             <span>
-                <button class="btn btn-md btn-outline-primary float-right" (click)="create()"><i class="fa fa-plus"></i> Создать новый предмет</button>
+                <button class="btn btn-md btn-outline-primary float-right" (click)="create()" *ngIf="role==userRoles.Admin"><i class="fa fa-plus"></i> Создать новый предмет</button>
             </span>
         </div>
     </ng-template>
@@ -34,6 +34,13 @@
                     <p-columnFilter type="text" field="creationTime" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
             </th>
+            <th pSortableColumn="isSubscribe" *ngIf="role==userRoles.Student">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    Статус
+                    <p-sortIcon field="isSubscribe"></p-sortIcon>
+                    <p-columnFilter type="text" field="isSubscribe" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-record>
@@ -49,14 +56,23 @@
                             <a href="javascript:;" class="dropdown-item" style="font-size: small;"
                             (click)="viewSubjectModal.show(record.id)">Просмотр</a>
                         </li>
-                        <div class="dropdown-divider"></div>
-                        <li>
+                        <div class="dropdown-divider" *ngIf="role==userRoles.Student"></div>
+                        <li *ngIf="role==userRoles.Student && compareIds(record.id) == false">
+                            <a href="javascript:;" class="dropdown-item" style="font-size: small;"
+                            (click)="subscribeStudentToSubject(record)">Подписаться</a>
+                        </li>
+                        <li *ngIf="role==userRoles.Student && compareIds(record.id) == true">
+                            <a href="javascript:;" class="dropdown-item" style="font-size: small;"
+                            (click)="unSubscribeStudentSubject(record)">Отписаться</a>
+                        </li>
+                        <div class="dropdown-divider" *ngIf="role==userRoles.Admin"></div>
+                        <li *ngIf="role==userRoles.Admin">
                             <a href="javascript:;" 
                                 class="dropdown-item" style="font-size: small;"
                                 (click)="createOrEditSubjectModal.show(record)">Редактировать</a>
                         </li>
-                        <div class="dropdown-divider"></div>
-                        <li>
+                        <div class="dropdown-divider" *ngIf="role==userRoles.Admin"></div>
+                        <li *ngIf="role==userRoles.Admin">
                             <a class="dropdown-item" href="javascript:;" style="font-size: small;"
                             (click)="deleteSubject(record.id)">Удалить</a>
                         </li>
@@ -68,6 +84,14 @@
             </td>
             <td>
                 {{record.creationTime | date: 'dd.MM.yyyy'}} г.
+            </td>
+            <td *ngIf="role==userRoles.Student">
+                <span style="color:rgb(0, 255, 0)" *ngIf="compareIds(record.id) == true">
+                    Подписан
+                </span>
+                <span style="color:red" *ngIf="compareIds(record.id) == false">
+                    Не подписан
+                </span>
             </td>
         </tr>
     </ng-template>

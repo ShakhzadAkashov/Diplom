@@ -342,6 +342,38 @@ namespace TestDiplom.Controllers.test
             return tests;
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Student")]
+        [Route("GetAllForStudent")]
+        //GET : /api/Test/GetAllForStudent
+        public async Task<List<TestModel>> GetAllForStudent()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var subjects = await _context.StudentSubjects.Where(s => s.StudentId == userId && s.IsSubscribe == true).ToListAsync();
+
+            var lst = new List<TestModel>();
+
+            foreach (var s in subjects)
+            {
+                var list = await _context.Tests.Include(l => l.SubjectFk).Where(l => l.SubjectId == s.SubjectId).ToListAsync();
+
+                foreach (var item in list)
+                {
+                    var test = new TestModel();
+                    test.Id = item.Id;
+                    test.Name = item.Name;
+                    test.OwnerId = item.OwnerId;
+                    test.SubjectName = item.SubjectFk.Name;
+                    test.IdForView = item.IdForView;
+
+                    lst.Add(test);
+                }
+            }
+
+            return lst;
+        }
+
         [HttpDelete]
         [Authorize]
         [Route("Delete")]
@@ -360,7 +392,7 @@ namespace TestDiplom.Controllers.test
         [HttpPost]
         [Authorize]
         [Route("CheckTest")]
-        //GET : /api/Test/CheckTest
+        //POST : /api/Test/CheckTest
 
         public async Task<double> CheckTest(TestModel test)
         {

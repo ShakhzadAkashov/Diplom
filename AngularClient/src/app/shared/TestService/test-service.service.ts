@@ -26,6 +26,10 @@ export class TestService {
     return this.http.get(this.BaseURI + '/Test/GetAllForUser');
   }
 
+  getAllForStudent(){
+    return this.http.get(this.BaseURI + '/Test/GetAllForStudent');
+  }
+
   getById(Id){
     return this.http.get(this.BaseURI + '/Test/GetById',{params: {id:Id}});
   }

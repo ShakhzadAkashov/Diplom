@@ -27,6 +27,8 @@ namespace TestDiplom.Models
         public DbSet<Subject.Subject> Subjects { get; set; }
         public DbSet<Practice.Practice> Practices { get; set; }
         public DbSet<PracticeFiles> PracticeFiles { get; set; }
+        public DbSet<StudentSubject.StudentSubject> StudentSubjects { get; set; }
+        public DbSet<StudentTesting.StudentTesting> StudentTestings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

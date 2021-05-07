@@ -4,6 +4,7 @@ export class UserModel{
     email: string;
     phoneNumber: string;
     fullName: string;
-    password:string;
-    isBlocked:boolean;
+    password: string;
+    isBlocked: boolean;
+    role: string;
 }

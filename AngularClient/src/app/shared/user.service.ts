@@ -17,6 +17,7 @@ export class UserService {
     UserName: ['', Validators.required],
     Email: ['', Validators.email],
     FullName: [''],
+    Role: [''],
     Passwords: this.fb.group({
       Password:['', [Validators.required, Validators.minLength(4)]],
       ConfirmPassword:['', Validators.required]
@@ -38,6 +39,7 @@ export class UserService {
       UserName: this.formModel.value.UserName,
       Email: this.formModel.value.Email,
       FullName: this.formModel.value.FullName,
+      Role: this.formModel.value.Role,
       Password: this.formModel.value.Passwords.Password,
     };
 
@@ -111,5 +113,6 @@ export class ApplicationUser{
   public fullName:string;
   public phoneNumber:string;
   public imgPath: string;
-  public isBlocked:boolean;
+  public isBlocked: boolean;
+  public role: string;
 }

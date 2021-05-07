@@ -58,6 +58,11 @@ import { ViewPracticeModalComponent } from './practice/view-practice-modal/view-
 import { TestLookupTableModalComponent } from './common/test-lookup-table-modal/test-lookup-table-modal.component';
 import { SubjectLookupTableModalComponent } from './common/subject-lookup-table-modal/subject-lookup-table-modal.component';
 import { PracticeLookupTableModalComponent } from './common/practice-lookup-table-modal/practice-lookup-table-modal.component';
+import { StudentSubjectServiceService } from './shared/studentSubjectService/student-subject-service.service';
+import { StudentSubjectComponent } from './student-subject/student-subject.component';
+import { StudentLectureComponent } from './lecture/student-lecture/student-lecture.component';
+import { StudentTestComponent } from './test/student-test/student-test.component';
+import { StudentTestingService } from './shared/studentTestingService/student-testing-service.service';
 
 registerLocaleData(ru);
 
@@ -94,7 +99,10 @@ registerLocaleData(ru);
     ViewPracticeModalComponent,
     TestLookupTableModalComponent,
     SubjectLookupTableModalComponent,
-    PracticeLookupTableModalComponent
+    PracticeLookupTableModalComponent,
+    StudentSubjectComponent,
+    StudentLectureComponent,
+    StudentTestComponent
   ],
   imports: [
     BrowserModule,
@@ -120,7 +128,9 @@ registerLocaleData(ru);
     LectureService, 
     TestService,
     SubjectService,
-    PracticeService,{
+    PracticeService,
+    StudentSubjectServiceService,
+    StudentTestingService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
