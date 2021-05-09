@@ -49,7 +49,7 @@ import { ViewSubjectModalComponent } from './subject/view-subject-modal/view-sub
 import { UsersComponent } from './admin/users/users.component';
 import { CreateOrEditUsersModalComponent } from './admin/users/create-or-edit-users-modal/create-or-edit-users-modal.component';
 import { ViewUsersModalComponent } from './admin/users/view-users-modal/view-users-modal.component';
-import { PracticeComponent } from './practice/practice.component';
+import { StudentPracticeListComponent } from './practice/student-practice-list/student-practice-list.component';
 import { PracticeListComponent } from './practice/practice-list/practice-list.component';
 import { PracticeService } from './shared/practiceService/practice-service.service';
 import { CreateOrEditPracticeModalComponent } from './practice/create-or-edit-practice-modal/create-or-edit-practice-modal.component';
@@ -63,6 +63,9 @@ import { StudentSubjectComponent } from './student-subject/student-subject.compo
 import { StudentLectureComponent } from './lecture/student-lecture/student-lecture.component';
 import { StudentTestComponent } from './test/student-test/student-test.component';
 import { StudentTestingService } from './shared/studentTestingService/student-testing-service.service';
+import { StudentPracticeComponent } from './practice/student-practice/student-practice.component';
+import { StudentPracticeService } from './shared/studentPracticeService/student-practice.service';
+import { StudentPracticeListForTeacherComponent } from './practice/student-practice-list-for-teacher/student-practice-list-for-teacher.component';
 
 registerLocaleData(ru);
 
@@ -92,7 +95,7 @@ registerLocaleData(ru);
     UsersComponent,
     CreateOrEditUsersModalComponent,
     ViewUsersModalComponent,
-    PracticeComponent,
+    StudentPracticeListComponent,
     PracticeListComponent,
     CreateOrEditPracticeModalComponent,
     ViewPracticeFileModalComponent,
@@ -102,7 +105,9 @@ registerLocaleData(ru);
     PracticeLookupTableModalComponent,
     StudentSubjectComponent,
     StudentLectureComponent,
-    StudentTestComponent
+    StudentTestComponent,
+    StudentPracticeComponent,
+    StudentPracticeListForTeacherComponent
   ],
   imports: [
     BrowserModule,
@@ -130,7 +135,8 @@ registerLocaleData(ru);
     SubjectService,
     PracticeService,
     StudentSubjectServiceService,
-    StudentTestingService,{
+    StudentTestingService,
+    StudentPracticeService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

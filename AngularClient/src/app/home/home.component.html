@@ -65,6 +65,9 @@
             <li nz-menu-item nzMatchRouter *ngIf="role==userRoles.Teacher || role==userRoles.Admin">
               <a routerLink="/home/practice">Практические задания</a>
             </li>
+            <li nz-menu-item nzMatchRouter *ngIf="role==userRoles.Teacher || role==userRoles.Admin">
+              <a routerLink="/home/studentPracticeListForTeacher">Практические задания студентов</a>
+            </li>
           </ul>
         </li>
         <li nz-submenu nzTitle="Предметы" nzIcon="form" *ngIf="role==userRoles.Student">
@@ -94,7 +97,7 @@
         <li nz-submenu nzTitle="Практичесие задания" nzIcon="form" *ngIf="role==userRoles.Student">
           <ul>
             <li nz-menu-item nzMatchRouter>
-              <a >Мои практические задания</a>
+              <a routerLink="/home/studentPracticeList">Мои практические задания</a>
             </li>
           </ul>
         </li>
@@ -126,7 +129,7 @@
                  [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
               ></i>
           </span>
-          <div class="float-right mr-2">
+          <div class="float-right mr-4">
             <button class="btn btn-outline-dark" (click)="onLogout()">Logout</button>
           </div>
         </div>

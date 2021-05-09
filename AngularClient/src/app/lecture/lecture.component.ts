@@ -183,6 +183,7 @@ export class LectureComponent implements OnInit {
   }
 
   RedirectToPractice(){
+    this.router.navigate(['/home/studentPractice'], { queryParams: { id: this.lecture.practiceId} }).then(f => { location.reload(true) });
   }
 }
 

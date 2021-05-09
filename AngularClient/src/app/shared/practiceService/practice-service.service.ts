@@ -23,6 +23,10 @@ export class PracticeService {
     return this.http.get(this.BaseURI + '/Practice/GetAllPracticeForUser');
   }
 
+  getAllForStudent(){
+    return this.http.get(this.BaseURI + '/Practice/GetAllForStudent');
+  }
+
   getAllForLookupTable(){
     return this.http.get(this.BaseURI + '/Practice/GetAll');
   }

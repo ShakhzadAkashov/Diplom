@@ -91,6 +91,40 @@ namespace TestDiplom.Controllers.practice
 
         [HttpGet]
         [Authorize]
+        [Route("GetAllForStudent")]
+        //GET : /api/Practice/GetAllForStudent
+        public async Task<List<PracticeModel>> GetAllForStudent()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var subjects = await _context.StudentSubjects.Where(s => s.StudentId == userId && s.IsSubscribe == true).ToListAsync();
+
+            var lst = new List<PracticeModel>();
+
+            foreach (var item in subjects)
+            {
+                var list = await _context.Practices.Include(p => p.SubjectFk).Where(p => p.SubjectId == item.SubjectId).ToListAsync();
+
+                foreach (var p in list) 
+                {
+                    var practice = new PracticeModel();
+
+                    practice.Id = p.Id;
+                    practice.Name = p.Name;
+                    practice.OwnerId = p.OwnerId;
+                    practice.SubjectName = p.SubjectFk.Name;
+                    practice.PracticeFiles = GetAllPracticeFilesById(p.Id);
+
+                    lst.Add(practice);
+                }
+
+            }
+
+            return lst;
+        }
+
+        [HttpGet]
+        [Authorize]
         [Route("GetPracticeById")]
         //GET : /api/Practice/GetPracticeById
         public async Task<PracticeModel> GetPracticeById(string Id)
