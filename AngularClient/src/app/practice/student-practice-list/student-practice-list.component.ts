@@ -48,7 +48,12 @@ export class StudentPracticeListComponent implements OnInit {
   }
 
   RedirectToPractice(Id:number){
-    this.router.navigate(['/home/studentPractice'], { queryParams: {id: Id, edit:true} }).then(f => { location.reload(true) });
+    var StudentPracticeId = 0;
+    for(var i of this.studentPracticeList){
+      if(i.practiceId == Id && i.studentId == this.userId)
+      StudentPracticeId = i.id;
+    }
+    this.router.navigate(['/home/studentPractice'], { queryParams: {id: Id, edit:true,studentPracticeId: StudentPracticeId} }).then(f => { location.reload(true) });
   }
 
   getPracticeScore(practiceId){

@@ -8,6 +8,8 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { TestLookupTableModalComponent } from '../common/test-lookup-table-modal/test-lookup-table-modal.component';
 import { SubjectLookupTableModalComponent } from '../common/subject-lookup-table-modal/subject-lookup-table-modal.component';
 import { PracticeLookupTableModalComponent } from '../common/practice-lookup-table-modal/practice-lookup-table-modal.component';
+import { StudentPractice } from '../models/StudentPractice';
+import { StudentPracticeService } from '../shared/studentPracticeService/student-practice.service';
 
 @Component({
   selector: 'app-lecture',
@@ -64,9 +66,15 @@ export class LectureComponent implements OnInit {
 };
 
 
-  constructor(private service:LectureService,private toastr: ToastrService,private router: Router,public _activatedRoute: ActivatedRoute,) { 
-    this.lectureId = this._activatedRoute.snapshot.queryParams['id'];
-    this.editModeBool = this._activatedRoute.snapshot.queryParams['edit'];
+  constructor(
+    private service:LectureService,
+    private toastr: ToastrService,
+    private router: Router,
+    public _activatedRoute: ActivatedRoute,
+    private studentPracticeService: StudentPracticeService
+    ) { 
+      this.lectureId = this._activatedRoute.snapshot.queryParams['id'];
+      this.editModeBool = this._activatedRoute.snapshot.queryParams['edit'];
   }
 
   @ViewChild('testLookupTableModal', { static: true }) testLookupTableModal: TestLookupTableModalComponent; 
@@ -81,6 +89,8 @@ export class LectureComponent implements OnInit {
   viewMode = false;
   editMode = false;
   editModeBool: string ='';
+  studentPracticeList: StudentPractice[] = [];
+  userId;
 
   ngOnInit(): void {
     if(this.lectureId != null){
@@ -89,10 +99,24 @@ export class LectureComponent implements OnInit {
     if(this.lectureId != null && this.editMode == false){
       this.viewMode = true;
       this.viewLecture();
+      this.getAllStudentPractice();
+      this.userId = this.getCurrentUserId();
     }else if(this.lectureId != null && this.editMode == true){
       this.viewMode = false;
       this.viewLecture();
     }
+  }
+
+  getAllStudentPractice(){
+    this.studentPracticeService.getAll().subscribe((res:StudentPractice[])=>{
+      this.studentPracticeList = res;
+    });
+  }
+
+  getCurrentUserId(){
+    var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+    var userId = payLoad.UserID;
+    return userId;
   }
 
   public uploadFinished = (event) =>{
@@ -179,11 +203,16 @@ export class LectureComponent implements OnInit {
   }
 
   RedirectToTest(){
-    this.router.navigate(['/home/testing'], { queryParams: { id: this.lecture.testId} }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/testing'], { queryParams: { id: this.lecture.testId} });
   }
 
   RedirectToPractice(){
-    this.router.navigate(['/home/studentPractice'], { queryParams: { id: this.lecture.practiceId} }).then(f => { location.reload(true) });
+    var StudentPracticeId = 0;
+    for(var i of this.studentPracticeList){
+      if(i.practiceId == this.lecture.practiceId && i.studentId == this.userId)
+      StudentPracticeId = i.id;
+    }
+    this.router.navigate(['/home/studentPractice'], { queryParams: { id: this.lecture.practiceId, edit:true,studentPracticeId: StudentPracticeId } });
   }
 }
 

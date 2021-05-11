@@ -65,7 +65,7 @@
             <li nz-menu-item nzMatchRouter *ngIf="role==userRoles.Teacher || role==userRoles.Admin">
               <a routerLink="/home/practice">Практические задания</a>
             </li>
-            <li nz-menu-item nzMatchRouter *ngIf="role==userRoles.Teacher || role==userRoles.Admin">
+            <li nz-menu-item nzMatchRouter class="pb-2 pt-2" style="white-space: normal !important; height: auto; line-height: 1.5;" *ngIf="role==userRoles.Teacher || role==userRoles.Admin">
               <a routerLink="/home/studentPracticeListForTeacher">Практические задания студентов</a>
             </li>
           </ul>

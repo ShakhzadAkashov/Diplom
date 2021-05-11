@@ -9,6 +9,7 @@ using TestDiplom.Models.test;
 using TestDiplom.Models.Subject;
 using TestDiplom.Models.Practice;
 using TestDiplom.Models.StudentPractice;
+using TestDiplom.Models.Comment;
 
 namespace TestDiplom.Models
 {
@@ -32,6 +33,8 @@ namespace TestDiplom.Models
         public DbSet<StudentTesting.StudentTesting> StudentTestings { get; set; }
         public DbSet<StudentPractice.StudentPractice> StudentPractices { get; set; }
         public DbSet<StudentPracticeFile> StudentPracticeFiles { get; set; }
+        public DbSet<Comment.Comment> Comments { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -31,11 +31,11 @@
                     <p-columnFilter type="text" field="creationTime" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
             </th> -->
-            <th pSortableColumn="isSubscribe" style="width: 50%;">
+            <th pSortableColumn="subjectScore" style="width: 50%;">
                 <div class="p-d-flex p-jc-between p-ai-center">
                     Количестов баллов
-                    <p-sortIcon field="isSubscribe"></p-sortIcon>
-                    <p-columnFilter type="text" field="isSubscribe" display="menu" class="p-ml-auto"></p-columnFilter>
+                    <p-sortIcon field="subjectScore"></p-sortIcon>
+                    <p-columnFilter type="text" field="subjectScore" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
             </th>
         </tr>
@@ -91,7 +91,7 @@
                 </span>
             </td> -->
             <td>
-                
+                {{record.subjectScore | number: '1.0-1'}}
             </td>
         </tr>
     </ng-template>

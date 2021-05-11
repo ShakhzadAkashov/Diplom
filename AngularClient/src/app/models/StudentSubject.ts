@@ -4,4 +4,5 @@ export class StudentSubject{
     studentId: string;
     subjectId: number;
     subjectName: string;
+    subjectScore: number;
 }

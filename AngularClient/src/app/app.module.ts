@@ -66,6 +66,8 @@ import { StudentTestingService } from './shared/studentTestingService/student-te
 import { StudentPracticeComponent } from './practice/student-practice/student-practice.component';
 import { StudentPracticeService } from './shared/studentPracticeService/student-practice.service';
 import { StudentPracticeListForTeacherComponent } from './practice/student-practice-list-for-teacher/student-practice-list-for-teacher.component';
+import { CommentService } from './shared/commentService/comment.service';
+import { CommentComponent } from './comment/comment.component';
 
 registerLocaleData(ru);
 
@@ -107,7 +109,8 @@ registerLocaleData(ru);
     StudentLectureComponent,
     StudentTestComponent,
     StudentPracticeComponent,
-    StudentPracticeListForTeacherComponent
+    StudentPracticeListForTeacherComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
@@ -136,7 +139,8 @@ registerLocaleData(ru);
     PracticeService,
     StudentSubjectServiceService,
     StudentTestingService,
-    StudentPracticeService,{
+    StudentPracticeService,
+    CommentService,{
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

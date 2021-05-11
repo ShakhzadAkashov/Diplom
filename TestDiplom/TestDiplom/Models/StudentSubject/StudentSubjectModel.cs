@@ -12,6 +12,7 @@ namespace TestDiplom.Models.StudentSubject
         public string StudentId { get; set; }
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
+        public double SubjectScore { get; set; }
 
     }
 }

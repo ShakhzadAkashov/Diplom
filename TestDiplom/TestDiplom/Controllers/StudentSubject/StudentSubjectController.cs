@@ -126,6 +126,7 @@ namespace TestDiplom.Controllers.StudentSubject
                     StudentId = item.StudentId,
                     SubjectId = item.SubjectId,
                     SubjectName = item.SubjectFk.Name,
+                    SubjectScore = await CountSubjectScore(item.SubjectId)
 
                 };
 
@@ -135,6 +136,49 @@ namespace TestDiplom.Controllers.StudentSubject
             return studentSubjects;
         }
 
+        [HttpGet]
+        [Authorize]
+        [Route("CountSubjectScore")]
+        //GET : /api/StudentSubject/CountSubjectScore
+        public async Task<double> CountSubjectScore(int id)
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var testingList = await _context.StudentTestings
+                .Include(t => t.TestFk)
+                .Where(t => t.TestFk.SubjectId == id && t.StudentId == userId).ToListAsync();
+
+            var practiceList = await _context.StudentPractices
+                .Include(p => p.PracticeFk)
+                .Where(p => p.PracticeFk.SubjectId == id && p.StudentId == userId).ToListAsync();
+
+            double testScore = 0.0;
+            double practiceScore = 0.0;
+
+            if (testingList.Count > 0)
+            {
+                foreach (var i in testingList)
+                {
+                    testScore += i.TestScore;
+                }
+
+                testScore /= testingList.Count;
+                testScore /= 2;
+            }
+
+            if (practiceList.Count > 0)
+            {
+                foreach (var i in practiceList)
+                {
+                    practiceScore += i.PracticeScore;
+                }
+
+                practiceScore /= practiceList.Count;
+                practiceScore /= 2;
+            }
+
+            return testScore + practiceScore;
+        }
 
     }
 }
