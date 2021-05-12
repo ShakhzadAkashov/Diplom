@@ -37,7 +37,7 @@
 <div class="row" *ngIf="!viewMode">
     <div class="col-md-12">
         <div class="form-group">
-            <label>Content</label>
+            <label>Контент</label>
             <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="lecture.content" [config]="editorConfig"></angular-editor>
         </div>
         <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="lecture" [config]="editorConfig"></angular-editor> -->
@@ -52,7 +52,7 @@
 <div class="row" *ngIf="!viewMode">
     <div class="col-md-12">
         <div class="form-group">
-            <label>UploadFiles</label>
+            <label>Загрузить файлы</label>
             <app-file-upload  (onUploadFinished)="uploadFinished($event)" (fileName)="getFileName($event)"></app-file-upload>
         </div>
     </div>
@@ -80,7 +80,8 @@
             <input class="form-control" [(ngModel)]="lecture.testName"
              [readonly]="viewMode">
         </div>
-        <button class="btn btn-outline-primary" (click)="RedirectToTest()"><i class="fa fa-external-link"></i> Перейти к тестированию</button>
+        <button *ngIf="showLink" class="btn btn-outline-primary" (click)="RedirectToTest()"><i class="fa fa-external-link"></i> Перейти к тестированию</button>
+        <button *ngIf="!showLink" class="btn btn-outline-primary" (click)="viewTestModal.show(lecture.testId)"><i class="fa fa-eye"></i> Просмотр теста</button>
     </div>
     <div class="col-md-12" *ngIf="!viewMode">
         <div class="form-group">
@@ -109,7 +110,8 @@
             <input class="form-control" [(ngModel)]="lecture.practiceName"
              [readonly]="viewMode">
         </div>
-        <button class="btn btn-outline-primary" (click)="RedirectToPractice()"><i class="fa fa-external-link"></i> Перейти к практическому заданию</button>
+        <button *ngIf="showLink" class="btn btn-outline-primary" (click)="RedirectToPractice()"><i class="fa fa-external-link"></i> Перейти к практическому заданию</button>
+        <button *ngIf="!showLink" class="btn btn-outline-primary" (click)="viewPracticeModal.show(lecture.practiceId)"><i class="fa fa-eye"></i> Просмотр практического задания</button>
     </div>
     <div class="col-md-12" *ngIf="!viewMode">
         <div class="form-group">
@@ -141,3 +143,5 @@
 <app-test-lookup-table-modal #testLookupTableModal (modalSave)="selectTest()"></app-test-lookup-table-modal>
 <app-subject-lookup-table-modal #subjectLookupTableModal (modalSave)="selectSubject()"></app-subject-lookup-table-modal>
 <app-practice-lookup-table-modal #practiceLookupTableModal (modalSave)="selectPractice()"></app-practice-lookup-table-modal>
+<app-view-practice-modal #viewPracticeModal></app-view-practice-modal>
+<app-view-test-modal #viewTestModal></app-view-test-modal>

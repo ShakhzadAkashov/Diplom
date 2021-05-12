@@ -5,6 +5,7 @@ import { CreateOrEditPracticeModalComponent } from '../create-or-edit-practice-m
 import { ToastrService } from 'ngx-toastr';
 import { ViewPracticeFileModalComponent } from '../view-practice-file-modal/view-practice-file-modal.component';
 import { ViewPracticeModalComponent } from '../view-practice-modal/view-practice-modal.component';
+import { UserRole } from 'src/app/models/Roles';
 
 @Component({
   selector: 'app-practice-list',
@@ -15,6 +16,8 @@ export class PracticeListComponent implements OnInit {
 
   practiceList:Practice[] = [];
   loading: boolean = true;
+  role;
+  userRoles = UserRole;
 
   @ViewChild('createOrEditPracticeModal', { static: true }) createOrEditPracticeModal: CreateOrEditPracticeModalComponent;
   @ViewChild('viewPracticeFileModal', { static: true }) viewPracticeFileModal: ViewPracticeFileModalComponent;
@@ -23,15 +26,29 @@ export class PracticeListComponent implements OnInit {
   constructor(private service: PracticeService,private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.role = this.getUserRole();
     this.getAll();
   }
 
+  getUserRole(){
+    var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+    var userRole = payLoad.role;
+    return userRole;
+  }
+
   getAll(){
-    this.service.getAll().subscribe((res:Practice[])=>{
-      this.practiceList =res;
-      this.loading = false;
-      console.log(this.practiceList);
-    });
+    if(this.role == this.userRoles.Admin){
+      this.service.getAllForAdmin().subscribe((res:Practice[])=>{
+        this.practiceList =res;
+        this.loading = false;
+      });
+    }
+    else{
+      this.service.getAll().subscribe((res:Practice[])=>{
+        this.practiceList =res;
+        this.loading = false;
+      });
+    }
   }
 
   createPractice(){

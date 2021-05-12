@@ -5,6 +5,7 @@ export class Lecture {
     name: string;
     content: string;
     ownerId: string;
+    ownerName: string;
     testId: number;
     testName: string;
     subjectId: number;

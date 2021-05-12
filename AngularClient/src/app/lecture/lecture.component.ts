@@ -10,6 +10,9 @@ import { SubjectLookupTableModalComponent } from '../common/subject-lookup-table
 import { PracticeLookupTableModalComponent } from '../common/practice-lookup-table-modal/practice-lookup-table-modal.component';
 import { StudentPractice } from '../models/StudentPractice';
 import { StudentPracticeService } from '../shared/studentPracticeService/student-practice.service';
+import { ViewPracticeModalComponent } from '../practice/view-practice-modal/view-practice-modal.component';
+import { UserRole } from '../models/Roles';
+import { ViewTestModalComponent } from '../test/view-test-modal/view-test-modal.component';
 
 @Component({
   selector: 'app-lecture',
@@ -79,7 +82,9 @@ export class LectureComponent implements OnInit {
 
   @ViewChild('testLookupTableModal', { static: true }) testLookupTableModal: TestLookupTableModalComponent; 
   @ViewChild('subjectLookupTableModal', { static: true }) subjectLookupTableModal: SubjectLookupTableModalComponent; 
-  @ViewChild('practiceLookupTableModal', { static: true }) practiceLookupTableModal: PracticeLookupTableModalComponent; 
+  @ViewChild('practiceLookupTableModal', { static: true }) practiceLookupTableModal: PracticeLookupTableModalComponent;
+  @ViewChild('viewPracticeModal', { static: true }) viewPracticeModal: ViewPracticeModalComponent; 
+  @ViewChild('viewTestModal', { static: true }) viewTestModal: ViewTestModalComponent;
 
   lecture: Lecture = new Lecture();
   lectureFiles:LectureFile[] = [];
@@ -91,8 +96,12 @@ export class LectureComponent implements OnInit {
   editModeBool: string ='';
   studentPracticeList: StudentPractice[] = [];
   userId;
+  role;
+  userRoles = UserRole;
+  showLink=true;
 
   ngOnInit(): void {
+    this.role = this.getUserRole();
     if(this.lectureId != null){
       this.editMode = Boolean(JSON.parse(this.editModeBool));
     }
@@ -104,6 +113,14 @@ export class LectureComponent implements OnInit {
     }else if(this.lectureId != null && this.editMode == true){
       this.viewMode = false;
       this.viewLecture();
+    }
+
+    this.setShowLink();
+  }
+
+  setShowLink(){
+    if(this.role == this.userRoles.Admin || this.role == this.userRoles.Teacher){
+      this.showLink = false;
     }
   }
 
@@ -117,6 +134,12 @@ export class LectureComponent implements OnInit {
     var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
     var userId = payLoad.UserID;
     return userId;
+  }
+
+  getUserRole(){
+    var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+    var userRole = payLoad.role;
+    return userRole;
   }
 
   public uploadFinished = (event) =>{
@@ -193,8 +216,8 @@ export class LectureComponent implements OnInit {
   }
 
   deleteTest(){
-    this.lecture.subjectId = null;
-		this.lecture.subjectName = null;
+    this.lecture.testId = null;
+		this.lecture.testName = null;
   }
 
   deleteSubject(){

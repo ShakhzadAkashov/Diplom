@@ -63,14 +63,16 @@ namespace TestDiplom.Controllers.practice
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("GetAllPracticeForUser")]
-        //GET : /api/Practice/GetAllPracticeForUser
-        public List<PracticeModel> GetAllPracticeForUser()
+        [Authorize(Roles = "Teacher")]
+        [Route("GetAllPracticeForTeacher")]
+        //GET : /api/Practice/GetAllPracticeForTeacher
+        public List<PracticeModel> GetAllPracticeForTeacher()
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
-            var list = _context.Practices.Where(p => p.OwnerId == userId);
+            var list = _context.Practices
+                .Include(p => p.SubjectFk)
+                .Include(p => p.OwnerFk).Where(p => p.OwnerId == userId);
 
             var lst = new List<PracticeModel>();
 
@@ -81,6 +83,39 @@ namespace TestDiplom.Controllers.practice
                 practice.Id = item.Id;
                 practice.Name = item.Name;
                 practice.OwnerId = item.OwnerId;
+                practice.OwnerName = item.OwnerFk.FullName;
+                practice.SubjectName = item.SubjectFk.Name;
+                practice.PracticeFiles = GetAllPracticeFilesById(item.Id);
+
+                lst.Add(practice);
+            }
+
+            return lst;
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("GetAllPracticeForAdmin")]
+        //GET : /api/Practice/GetAllPracticeForAdmin
+        public async Task<List<PracticeModel>> GetAllPracticeForAdmin()
+        {
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+
+            var list = await _context.Practices
+                .Include(p => p.SubjectFk)
+                .Include(p => p.OwnerFk).ToListAsync();
+
+            var lst = new List<PracticeModel>();
+
+            foreach (var item in list)
+            {
+                var practice = new PracticeModel();
+
+                practice.Id = item.Id;
+                practice.Name = item.Name;
+                practice.OwnerId = item.OwnerId;
+                practice.OwnerName = item.OwnerFk.FullName;
+                practice.SubjectName = item.SubjectFk.Name;
                 practice.PracticeFiles = GetAllPracticeFilesById(item.Id);
 
                 lst.Add(practice);

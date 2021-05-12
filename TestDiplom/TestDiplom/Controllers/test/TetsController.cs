@@ -294,7 +294,7 @@ namespace TestDiplom.Controllers.test
         //GET : /api/Test/GetAll
         public async Task<List<TestModel>> GetAll()
         {
-            var lst = await _context.Tests.ToListAsync();
+            var lst = await _context.Tests.Include(t => t.SubjectFk).ToListAsync();
 
             var tests = new List<TestModel>();
 
@@ -304,8 +304,9 @@ namespace TestDiplom.Controllers.test
                 {
                     Id = item.Id,
                     Name = item.Name,
-                    IdForView = item.IdForView
-
+                    IdForView = item.IdForView,
+                    SubjectName = item.SubjectFk.Name,
+                    AmountTestQuestions = _context.TestQuestions.Where(q => q.TestId == item.Id).Select(q => q).Count()
                 };
 
                 tests.Add(test);
@@ -322,7 +323,7 @@ namespace TestDiplom.Controllers.test
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
-            var lst = await _context.Tests.Where(t => t.OwnerId == userId).ToListAsync();
+            var lst = await _context.Tests.Include(t => t.SubjectFk).Where(t => t.OwnerId == userId).ToListAsync();
 
             var tests = new List<TestModel>();
 
@@ -332,8 +333,9 @@ namespace TestDiplom.Controllers.test
                 {
                     Id = item.Id,
                     Name = item.Name,
-                    IdForView = item.IdForView
-                    
+                    IdForView = item.IdForView,
+                    SubjectName = item.SubjectFk.Name,
+                    AmountTestQuestions = _context.TestQuestions.Where(q => q.TestId == item.Id).Select(q => q).Count()
                 };
 
                 tests.Add(test);
@@ -366,6 +368,7 @@ namespace TestDiplom.Controllers.test
                     test.OwnerId = item.OwnerId;
                     test.SubjectName = item.SubjectFk.Name;
                     test.IdForView = item.IdForView;
+                    //test.AmountTestQuestions = _context.TestQuestions.Where(q => q.TestId == item.Id).Select(q => q).Count();
 
                     lst.Add(test);
                 }

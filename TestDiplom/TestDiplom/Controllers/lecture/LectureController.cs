@@ -69,7 +69,9 @@ namespace TestDiplom.Controllers.lecture
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
-            var list = _context.Lectures.Where(l => l.OwnerId == userId);
+            var list = _context.Lectures
+                .Include(l => l.OwnerFk)
+                .Include(l => l.SubjectFk).Where(l => l.OwnerId == userId);
 
             var lst = new List<LectureModel>();
 
@@ -80,6 +82,8 @@ namespace TestDiplom.Controllers.lecture
                 lecture.Id = item.Id;
                 lecture.Name = item.Name;
                 lecture.OwnerId = item.OwnerId;
+                lecture.SubjectName = item.SubjectFk.Name;
+                lecture.OwnerName = item.OwnerFk.FullName;
                 lecture.LectureFiles = GetAllLectureFilesById(item.Id);
 
                 lst.Add(lecture);
@@ -94,7 +98,9 @@ namespace TestDiplom.Controllers.lecture
         //GET : /api/Lecture/GetAllLecturesForAdmin
         public async  Task<List<LectureModel>> GetAllLecturesForAdmin()
         {
-            var list = await _context.Lectures.ToListAsync();
+            var list = await _context.Lectures
+                .Include(l => l.OwnerFk)
+                .Include(l => l.SubjectFk).ToListAsync();
 
             var lst = new List<LectureModel>();
 
@@ -105,6 +111,8 @@ namespace TestDiplom.Controllers.lecture
                 lecture.Id = item.Id;
                 lecture.Name = item.Name;
                 lecture.OwnerId = item.OwnerId;
+                lecture.SubjectName = item.SubjectFk.Name;
+                lecture.OwnerName = item.OwnerFk.FullName;
                 lecture.LectureFiles = GetAllLectureFilesById(item.Id);
 
                 lst.Add(lecture);

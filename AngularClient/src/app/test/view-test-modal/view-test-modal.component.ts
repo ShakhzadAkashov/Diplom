@@ -22,9 +22,9 @@ export class ViewTestModalComponent{
       this.test = new Test();
     }
 
-    show(i:Test): void {
+    show(id): void {
       this.test.testQuestions=[];
-      this.service.getById(i.id).subscribe((res:Test)=>{
+      this.service.getById(id).subscribe((res:Test)=>{
         this.test = res;
       });
         this.active = true;

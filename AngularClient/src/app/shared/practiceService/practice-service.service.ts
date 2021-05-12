@@ -20,7 +20,11 @@ export class PracticeService {
   }
 
   getAll(){
-    return this.http.get(this.BaseURI + '/Practice/GetAllPracticeForUser');
+    return this.http.get(this.BaseURI + '/Practice/GetAllPracticeForTeacher');
+  }
+
+  getAllForAdmin(){
+    return this.http.get(this.BaseURI + '/Practice/GetAllPracticeForAdmin');
   }
 
   getAllForStudent(){

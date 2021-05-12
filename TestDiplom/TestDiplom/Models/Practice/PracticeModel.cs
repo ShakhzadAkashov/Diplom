@@ -10,6 +10,7 @@ namespace TestDiplom.Models.Practice
         public int Id { get; set; }
         public string Name { get; set; }
         public string OwnerId { get; set; }
+        public string OwnerName { get; set; }
         public int? SubjectId { get; set; }
         public string SubjectName { get; set; }
         public IList<PracticeFiles> PracticeFiles { get; set; }

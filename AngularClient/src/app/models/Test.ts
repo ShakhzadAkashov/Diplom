@@ -7,5 +7,6 @@ export class Test{
     ownerId:string;
     subjectId: number;
     subjectName: string;
+    amountTestQuestions: string;
     testQuestions: TestQuestion[];
 }
