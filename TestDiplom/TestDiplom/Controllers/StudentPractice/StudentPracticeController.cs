@@ -137,13 +137,18 @@ namespace TestDiplom.Controllers.StudentPractice
             foreach (var p in lst)
             {
                 var studentPractice = new StudentPracticeModel();
+                string firstName = "", lastName = "", patronymic = "";
 
                 studentPractice.Id = p.Id;
                 studentPractice.StudentId = p.StudentId;
                 studentPractice.PracticeId = p.PracticeId;
                 studentPractice.IsAccept = p.IsAccept;
                 studentPractice.IsRevision = p.IsRevision;
-                studentPractice.StudentFullName = p.StudentFk.FullName == null ? "" : p.StudentFk.FullName;
+                firstName = p.StudentFk.FirstName ?? "";
+                lastName = p.StudentFk.LastName ?? "";
+                patronymic = p.StudentFk.Patronymic ?? "";
+                studentPractice.StudentFullName = lastName + " " + firstName + " " + patronymic;
+                //studentPractice.StudentFullName = p.StudentFk.FullName == null ? "" : p.StudentFk.FullName;
                 studentPractice.PracticeName = p.PracticeFk.Name;
                 studentPractice.SubjectName = p.PracticeFk.SubjectFk.Name;
                 studentPractice.PracticeScore = p.PracticeScore;
@@ -172,6 +177,7 @@ namespace TestDiplom.Controllers.StudentPractice
 
             var studentPractice = new StudentPracticeModel();
             studentPractice.StudentPracticeFiles = new List<StudentPracticeFile>();
+            string firstName = "", lastName = "", patronymic = "";
 
             if (p != null)
             {
@@ -180,7 +186,11 @@ namespace TestDiplom.Controllers.StudentPractice
                 studentPractice.PracticeId = p.PracticeId;
                 studentPractice.IsAccept = p.IsAccept;
                 studentPractice.IsRevision = p.IsRevision;
-                studentPractice.StudentFullName = p.StudentFk.FullName == null ? "" : p.StudentFk.FullName;
+                firstName = p.StudentFk.FirstName ?? "";
+                lastName = p.StudentFk.LastName ?? "";
+                patronymic = p.StudentFk.Patronymic ?? "";
+                studentPractice.StudentFullName = lastName + " " + firstName + " " + patronymic;
+                //studentPractice.StudentFullName = p.StudentFk.FullName == null ? "" : p.StudentFk.FullName;
                 studentPractice.PracticeName = p.PracticeFk.Name;
                 studentPractice.SubjectName = p.PracticeFk.SubjectFk.Name;
                 studentPractice.PracticeScore = p.PracticeScore;
@@ -229,6 +239,7 @@ namespace TestDiplom.Controllers.StudentPractice
 
             var studentPractice = new StudentPracticeModel();
             studentPractice.StudentPracticeFiles = new List<StudentPracticeFile>();
+            string firstName = "", lastName = "", patronymic = "";
 
             if (p != null)
             {
@@ -239,7 +250,11 @@ namespace TestDiplom.Controllers.StudentPractice
                 studentPractice.IsRevision = p.IsRevision;
                 studentPractice.PracticeName = p.PracticeFk.Name;
                 studentPractice.SubjectName = p.PracticeFk.SubjectFk.Name;
-                studentPractice.StudentFullName = p.StudentFk.FullName == null ? "" : p.StudentFk.FullName;
+                firstName = p.StudentFk.FirstName ?? "";
+                lastName = p.StudentFk.LastName ?? "";
+                patronymic = p.StudentFk.Patronymic ?? "";
+                studentPractice.StudentFullName = lastName + " " + firstName + " " + patronymic;
+                //studentPractice.StudentFullName = p.StudentFk.FullName == null ? "" : p.StudentFk.FullName;
                 studentPractice.PracticeScore = p.PracticeScore;
                 studentPractice.StudentPracticeFiles = GetAllFilesById(p.Id);
             }
@@ -267,6 +282,7 @@ namespace TestDiplom.Controllers.StudentPractice
             {
                 var studentPractice = new StudentPracticeModel();
                 studentPractice.StudentPracticeFiles = new List<StudentPracticeFile>();
+                string firstName="", lastName="", patronymic = "";
 
                 studentPractice.Id = item.Id;
                 studentPractice.StudentId = item.StudentId;
@@ -275,7 +291,10 @@ namespace TestDiplom.Controllers.StudentPractice
                 studentPractice.IsRevision = item.IsRevision;
                 studentPractice.PracticeName = item.PracticeFk.Name;
                 studentPractice.SubjectName = item.PracticeFk.SubjectFk.Name;
-                studentPractice.StudentFullName = item.StudentFk.FullName == null ? "" : item.StudentFk.FullName;
+                firstName = item.StudentFk.FirstName ?? "";
+                lastName = item.StudentFk.LastName ?? "";
+                patronymic = item.StudentFk.Patronymic ?? "";
+                studentPractice.StudentFullName = lastName + " " + firstName + " " + patronymic;
                 studentPractice.PracticeScore = item.PracticeScore;
                 studentPractice.StudentPracticeFiles = GetAllFilesById(item.Id);
 

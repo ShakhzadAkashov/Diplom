@@ -22,7 +22,7 @@
             </th>
             <th pSortableColumn="userName">
                 <div class="p-d-flex p-jc-between p-ai-center">
-                    Имя
+                    Название учетной записи пользователя
                     <p-sortIcon field="userName"></p-sortIcon>
                     <p-columnFilter type="text" field="userName" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
@@ -35,11 +35,18 @@
                 </div>
             </th> -->
             
-            <th pSortableColumn="email">
+            <!-- <th pSortableColumn="email">
                 <div class="p-d-flex p-jc-between p-ai-center">
                     Почта
                     <p-sortIcon field="email"></p-sortIcon>
                     <p-columnFilter type="text" field="email" display="menu" class="p-ml-auto"></p-columnFilter>
+                </div>
+            </th> -->
+            <th pSortableColumn="firstName">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    ФИО пользователя
+                    <p-sortIcon field="firstName"></p-sortIcon>
+                    <p-columnFilter type="text" field="firstName" display="menu" class="p-ml-auto"></p-columnFilter>
                 </div>
             </th>
             <th pSortableColumn="phoneNumber">
@@ -101,8 +108,11 @@
             <!-- <td>
                 {{record.fullName}}
             </td> -->
-            <td>
+            <!-- <td>
                 {{record.email}}
+            </td> -->
+            <td>
+                {{record.firstName + " " + record.lastName + " " + record.patronymic}}
             </td>
             <td>
                 {{record.phoneNumber}}

@@ -36,8 +36,11 @@ namespace TestDiplom.Controllers
             var applicationUser = new ApplicationUser()
             {
                 UserName = model.UserName,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Patronymic = model.Patronymic,
                 Email = model.Email,
-                FullName = model.FullName,
+                //FullName = model.FullName,
                 PhoneNumber = model.PhoneNumber
             };
 

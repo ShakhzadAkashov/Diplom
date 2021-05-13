@@ -70,7 +70,7 @@ namespace TestDiplom.Controllers.Comment
                 comment.Id = item.Id;
                 comment.StudentPracticeId = item.StudentPracticeId;
                 comment.OwnerId = item.OwnerId;
-                comment.OwnerName = item.OwnerFk.FullName;
+                comment.OwnerName = item.OwnerFk.FirstName + " " + item.OwnerFk.LastName + " " + item.OwnerFk.Patronymic;
                 comment.CommentContent = item.CommentContent;
                 comment.CreationTime = item.CreationTime;
 

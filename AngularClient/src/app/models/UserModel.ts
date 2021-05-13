@@ -3,7 +3,10 @@ export class UserModel{
     userName: string;
     email: string;
     phoneNumber: string;
-    fullName: string;
+    //fullName: string;
+    firstName: string;
+    lastName: string;
+    patronymic: string;
     password: string;
     isBlocked: boolean;
     role: string;

@@ -15,9 +15,9 @@ export class UserService {
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
-    Email: ['', Validators.email],
-    FullName: [''],
-    Role: [''],
+    //Email: ['', Validators.email],
+    //FullName: [''],
+    Role: ['',Validators.required],
     Passwords: this.fb.group({
       Password:['', [Validators.required, Validators.minLength(4)]],
       ConfirmPassword:['', Validators.required]
@@ -37,8 +37,8 @@ export class UserService {
   register(){
     var body = {
       UserName: this.formModel.value.UserName,
-      Email: this.formModel.value.Email,
-      FullName: this.formModel.value.FullName,
+      //Email: this.formModel.value.Email,
+      //FullName: this.formModel.value.FullName,
       Role: this.formModel.value.Role,
       Password: this.formModel.value.Passwords.Password,
     };
@@ -110,7 +110,10 @@ export class ApplicationUser{
   public userName:string;
   public email:string;
   public password:string;
-  public fullName:string;
+  //public fullName:string;
+  public firstName: string;
+  public lastName: string;
+  public patronymic: string;
   public phoneNumber:string;
   public imgPath: string;
   public isBlocked: boolean;
