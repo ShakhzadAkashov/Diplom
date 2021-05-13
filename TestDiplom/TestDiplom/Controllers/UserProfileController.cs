@@ -36,7 +36,10 @@ namespace TestDiplom.Controllers
 
             var a = new ApplicationUserModel
             {
-                FullName = user.FullName,
+                //FullName = user.FullName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Patronymic = user.Patronymic,
                 Email = user.Email,
                 UserName = user.UserName,
                 PhoneNumber = user.PhoneNumber,
@@ -54,7 +57,7 @@ namespace TestDiplom.Controllers
         //Get : /api/GetAll
         public async Task<List<UserModel>> GetAll()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = await _userManager.Users.Where(u => u.UserName != "Admin").ToListAsync();
 
             List<UserModel> userLst = new List<UserModel>();
 
@@ -64,7 +67,10 @@ namespace TestDiplom.Controllers
 
                 user.Id = i.Id;
                 user.UserName = i.UserName;
-                user.FullName = i.FullName;
+                //user.FullName = i.FullName;
+                user.FirstName = i.FirstName ?? "";
+                user.LastName = i.LastName ?? "";
+                user.Patronymic = i.Patronymic ?? "";
                 user.Email = i.Email;
                 user.PhoneNumber = i.PhoneNumber;
                 user.IsBlocked = i.IsBlocked;
@@ -82,15 +88,20 @@ namespace TestDiplom.Controllers
         public async Task<UserModel> GetById(string id)
         {
             var u = await _userManager.FindByIdAsync(id);
+            var role = await _userManager.GetRolesAsync(u);
 
             var user = new UserModel();
 
             user.Id = u.Id;
             user.UserName = u.UserName;
-            user.FullName = u.FullName;
+            //user.FullName = u.FullName;
+            user.FirstName = u.FirstName;
+            user.LastName = u.LastName;
+            user.Patronymic = u.Patronymic;
             user.Email = u.Email;
             user.PhoneNumber = u.PhoneNumber;
             user.IsBlocked = u.IsBlocked;
+            user.Role = role.FirstOrDefault();
             
             return user;
         }
@@ -106,7 +117,10 @@ namespace TestDiplom.Controllers
 
             var user = await _userManager.FindByIdAsync(userId);
 
-            user.FullName = userProfile.FullName;
+            //user.FullName = userProfile.FullName;
+            user.FirstName = userProfile.FirstName;
+            user.LastName = userProfile.LastName;
+            user.Patronymic = userProfile.Patronymic;
             user.Email = userProfile.Email;
             user.UserName = userProfile.UserName;
             user.PhoneNumber = userProfile.PhoneNumber;
@@ -131,14 +145,20 @@ namespace TestDiplom.Controllers
         public async Task<IActionResult> UpdateUser(ApplicationUserModel model)
         {
             var user = await _userManager.FindByIdAsync(model.Id);
+            var removedRole = await _userManager.GetRolesAsync(user);
 
-            user.FullName = model.FullName;
+            //user.FullName = model.FullName;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Patronymic = model.Patronymic;
             user.Email = model.Email;
             user.UserName = model.UserName;
             user.PhoneNumber = model.PhoneNumber;
 
             try
             {
+                await _userManager.RemoveFromRolesAsync(user, removedRole);
+                await _userManager.AddToRoleAsync(user, model.Role);
                 var result = await _userManager.UpdateAsync(user);
 
                 return Ok(result);

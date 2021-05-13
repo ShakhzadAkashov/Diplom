@@ -43,9 +43,13 @@ export class CreateOrEditUsersModalComponent implements OnInit {
           console.log(res);
         });
         this.userTemp.userName = user.userName;
-        this.userTemp.fullName = user.fullName;
+        //this.userTemp.fullName = user.fullName;
+        this.userTemp.firstName = user.firstName;
+        this.userTemp.lastName = user.lastName;
+        this.userTemp.patronymic = user.patronymic;
         this.userTemp.email = user.email;
         this.userTemp.phoneNumber = user.phoneNumber;
+        this.userTemp.role = user.role;
         this.edit = true;
         this.active = true;
         this.modal.show();
@@ -58,10 +62,14 @@ export class CreateOrEditUsersModalComponent implements OnInit {
     var appUser = new ApplicationUser();
 
     appUser.email = this.user.email;
-    appUser.fullName = this.user.fullName;
+    //appUser.fullName = this.user.fullName;
+    appUser.firstName = this.user.firstName;
+    appUser.lastName = this.user.lastName;
+    appUser.patronymic = this.user.patronymic;
     appUser.phoneNumber = this.user.phoneNumber;
     appUser.userName = this.user.userName;
     appUser.id = this.user.id;
+    appUser.role = this.user.role;
 
     if(this.edit == true){
       this.service.updateUser(appUser)
@@ -105,9 +113,13 @@ export class CreateOrEditUsersModalComponent implements OnInit {
   close(): void {
     if(this.edit == true && this.saving == false){
       this.user.userName = this.userTemp.userName;
-      this.user.fullName = this.userTemp.fullName;
+      //this.user.fullName = this.userTemp.fullName;
+      this.user.firstName = this.userTemp.firstName;
+      this.user.lastName = this.userTemp.lastName;
+      this.user.patronymic = this.userTemp.patronymic;
       this.user.email = this.userTemp.email;
       this.user.phoneNumber = this.userTemp.phoneNumber;
+      this.user.role = this.userTemp.role;
     }
         
     this.active = false;

@@ -11,12 +11,20 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="userName" style="font-size: 1.1rem;">Имя пользователя: </label>
+                    <label for="userName" style="font-size: 1.1rem;">Название учетной записи пользователя: </label>
                     <input type="text" id="userName" class="form-control mb-2" [(ngModel)]="user.userName" name="userName" readonly required />
                 </div>
                 <div class="form-group">
-                    <label for="fullName" style="font-size: 1.1rem;">Полное имя пользователя: </label>
-                    <input type="text" id="fullName" class="form-control mb-2" [(ngModel)]="user.fullName" name="fullName" readonly required />
+                    <label for="firstName" style="font-size: 1.1rem;">Имя пользователя: </label>
+                    <input type="text" id="firstName" class="form-control mb-2" [(ngModel)]="user.firstName" name="firstName" required />
+                </div>
+                <div class="form-group">
+                    <label for="lastName" style="font-size: 1.1rem;">Фамилия пользователя: </label>
+                    <input type="text" id="lastName" class="form-control mb-2" [(ngModel)]="user.lastName" name="lastName" required />
+                </div>
+                <div class="form-group">
+                    <label for="patronymic" style="font-size: 1.1rem;">Отчество пользователя: </label>
+                    <input type="text" id="patronymic" class="form-control mb-2" [(ngModel)]="user.patronymic" name="patronymic" required />
                 </div>
                 <div class="form-group">
                     <label for="email" style="font-size: 1.1rem;">Почта: </label>
@@ -26,9 +34,13 @@
                     <label for="phoneNumber" style="font-size: 1.1rem;">Телефон номер: </label>
                     <input type="text" id="phoneNumber"  class="form-control mb-2" [(ngModel)]="user.phoneNumber" name="phoneNumber" readonly required />
                 </div>
+                <div class="form-group">
+                    <label for="Role" style="font-size: 1.1rem;">Роль пользователя:: </label>
+                    <input type="text" id="Role"  class="form-control mb-2" [(ngModel)]="user.role" name="Role" readonly required />
+                </div>
             </div>
             <div class="modal-footer">
-                <button [disabled]="saving" type="button" class="btn btn-md btn-outline-primary blue" (click)="close()">Close</button>
+                <button [disabled]="saving" type="button" class="btn btn-md btn-outline-primary blue" (click)="close()">Закрыть</button>
             </div>
         </div>
     </div>

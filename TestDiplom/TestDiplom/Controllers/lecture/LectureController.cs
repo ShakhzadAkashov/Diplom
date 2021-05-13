@@ -83,7 +83,7 @@ namespace TestDiplom.Controllers.lecture
                 lecture.Name = item.Name;
                 lecture.OwnerId = item.OwnerId;
                 lecture.SubjectName = item.SubjectFk.Name;
-                lecture.OwnerName = item.OwnerFk.FullName;
+                lecture.OwnerName = item.OwnerFk.FirstName + " " + item.OwnerFk.LastName + " " + item.OwnerFk.Patronymic;
                 lecture.LectureFiles = GetAllLectureFilesById(item.Id);
 
                 lst.Add(lecture);
@@ -112,7 +112,8 @@ namespace TestDiplom.Controllers.lecture
                 lecture.Name = item.Name;
                 lecture.OwnerId = item.OwnerId;
                 lecture.SubjectName = item.SubjectFk.Name;
-                lecture.OwnerName = item.OwnerFk.FullName;
+                //lecture.OwnerName = item.OwnerFk.FullName;
+                lecture.OwnerName = item.OwnerFk.FirstName + " " + item.OwnerFk.LastName + " " + item.OwnerFk.Patronymic;
                 lecture.LectureFiles = GetAllLectureFilesById(item.Id);
 
                 lst.Add(lecture);

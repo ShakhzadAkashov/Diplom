@@ -83,7 +83,8 @@ namespace TestDiplom.Controllers.practice
                 practice.Id = item.Id;
                 practice.Name = item.Name;
                 practice.OwnerId = item.OwnerId;
-                practice.OwnerName = item.OwnerFk.FullName;
+                //practice.OwnerName = item.OwnerFk.FullName;
+                practice.OwnerName = item.OwnerFk.FirstName + " " + item.OwnerFk.LastName + " " + item.OwnerFk.Patronymic;
                 practice.SubjectName = item.SubjectFk.Name;
                 practice.PracticeFiles = GetAllPracticeFilesById(item.Id);
 
@@ -114,7 +115,7 @@ namespace TestDiplom.Controllers.practice
                 practice.Id = item.Id;
                 practice.Name = item.Name;
                 practice.OwnerId = item.OwnerId;
-                practice.OwnerName = item.OwnerFk.FullName;
+                practice.OwnerName = item.OwnerFk.FirstName + " " + item.OwnerFk.LastName + " " + item.OwnerFk.Patronymic;
                 practice.SubjectName = item.SubjectFk.Name;
                 practice.PracticeFiles = GetAllPracticeFilesById(item.Id);
 
