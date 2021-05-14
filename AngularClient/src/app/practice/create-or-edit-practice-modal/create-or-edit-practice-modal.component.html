@@ -16,7 +16,7 @@
                         
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label style="font-size: 1.1rem;">Прикрепить к предмету. Название предмета</label>
+                                <label style="font-size: 1.1rem;">Прикрепить к предмету. Название предмета: *</label>
                                 <div class="input-group">
                                     <input class="form-control" [(ngModel)]="practice.subjectName" (click)="openSelectSubjectModal()" readonly name="subjectName" required>
                                 
@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label style="font-size: 1.1rem;">Загрузить методические указания</label>
+                                <label style="font-size: 1.1rem;">Загрузить методические указания: *</label>
                                 <app-file-upload  (onUploadFinished)="uploadFinished($event)" (fileName)="getFileName($event)"></app-file-upload>
                             </div>
                         </div>
