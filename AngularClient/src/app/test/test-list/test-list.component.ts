@@ -64,7 +64,7 @@ export class TestListComponent implements OnInit {
   }
 
   testing(id:number){
-    this.router.navigate(['/home/testing'], { queryParams: { id: id} }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/testing'], { queryParams: { id: id} })/*.then(f => { location.reload(true) });*/
   }
 
   deleteTestItem(id:number){

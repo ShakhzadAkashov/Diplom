@@ -34,7 +34,7 @@ export class StudentTestComponent implements OnInit {
   }
 
   testing(id:number){
-    this.router.navigate(['/home/testing'], { queryParams: { id: id} }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/testing'], { queryParams: { id: id} })/*.then(f => { location.reload(true) });*/
   }
 
   getCurrentUserId(){
