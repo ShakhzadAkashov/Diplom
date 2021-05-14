@@ -22,7 +22,7 @@
 
                 <div class=" border-bottom border-dark" *ngFor="let item of test.testQuestions; let i = index">
                     <div class="form-group">
-                        <label for="Test_Name">Название {{i+1}} вопроса:</label>
+                        <label for="Test_Name" style="font-size: 1rem;">Название {{i+1}} вопроса:</label>
                         <div class="input-group">
                             <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="test.testQuestions[i].name"
                                 placeholder="Название вопроса" readonly required>
@@ -31,7 +31,7 @@
 
                     <div class="" *ngFor="let item of test.testQuestions[i].testQuestionAnswer; let j = index">
                         <div class="form-group">
-                            <label for="Test_Name">Название {{j+1}} ответа на вопрос:</label>
+                            <label for="Test_Name" style="font-size: 1rem;">Название {{j+1}} ответа на вопрос:</label>
                             <div class="input-group">
                                 <div class="input-group-append">
                                     <input type="checkbox" disabled style="height: 2.7em; width: 2.7em;" [ngModelOptions]="{standalone: true}" [(ngModel)]="test.testQuestions[i].testQuestionAnswer[j].isCorrect"/>

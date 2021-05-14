@@ -1,14 +1,23 @@
+<div class="row" *ngIf="viewMode">
+    <div class="col-md-12">
+        <div class="form-group text-center">
+            <label style="font-size: 1.3rem;"><b>{{lecture.name}}</b></label>
+            <!-- <input class="form-control" [(ngModel)]="lecture.name" [readonly]="viewMode"> -->
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-12" *ngIf="viewMode && lecture.subjectId != null">
-        <div class="form-group">
-            <label>Навзание предмета</label>
-            <input class="form-control" [(ngModel)]="lecture.subjectName"
-             [readonly]="viewMode">
-        </div>
+        <!-- <div class="form-group"> -->
+            <label style="font-size: 1rem;"><b>Навзание предмета:</b> {{lecture.subjectName}}</label>
+            <!-- <input class="form-control" [(ngModel)]="lecture.subjectName"
+             [readonly]="viewMode"> -->
+        <!-- </div> -->
     </div>
     <div class="col-md-12" *ngIf="!viewMode">
         <div class="form-group">
-            <label>Прикрепить к предмету. Название предмета</label>
+            <label style="font-size: 1rem;">Прикрепить к предмету. Название предмета: </label>
             <div class="input-group">
                 <input class="form-control" [(ngModel)]="lecture.subjectName"
                 (click)="openSelectSubjectModal()" readonly>
@@ -26,40 +35,43 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row" *ngIf="!viewMode">
     <div class="col-md-12">
         <div class="form-group">
-            <label>Название</label>
+            <label style="font-size: 1rem;">Название лекции: </label>
             <input class="form-control" [(ngModel)]="lecture.name" [readonly]="viewMode">
         </div>
     </div>
 </div>
-<div class="row" *ngIf="!viewMode">
+<div class="row pb-2" *ngIf="!viewMode">
     <div class="col-md-12">
         <div class="form-group">
-            <label>Контент</label>
+            <label style="font-size: 1rem;">Контент лекции: </label>
             <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="lecture.content" [config]="editorConfig"></angular-editor>
         </div>
         <!-- <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="lecture" [config]="editorConfig"></angular-editor> -->
     </div>
 </div>
-<div class="row" *ngIf="viewMode">
+<div class="row pb-2" *ngIf="viewMode">
     <div class="col-md-12">
-        <div [innerHtml]="lecture.content"></div>
-        <!-- <p>{{lecture}}</p> -->
+        <label style="font-size: 1rem;"><b>Контент лекции:</b> </label>
+        <div class="col-md-12 border-top border-bottom">
+            <div style="font-size: 1rem;" [innerHtml]="lecture.content"></div>
+            <!-- <p>{{lecture}}</p> -->
+        </div>
     </div>
 </div>
 <div class="row" *ngIf="!viewMode">
     <div class="col-md-12">
         <div class="form-group">
-            <label>Загрузить файлы</label>
+            <label style="font-size: 1rem;">Загрузить файлы лекции: </label>
             <app-file-upload  (onUploadFinished)="uploadFinished($event)" (fileName)="getFileName($event)"></app-file-upload>
         </div>
     </div>
 </div>
 <div class="row" *ngIf="lectureFiles.length != 0">
     <div class="col-md-12">
-        <label>Прикрепленные файлы</label> 
+        <label style="font-size: 1rem;" [class.boldStyle]="viewMode">Прикрепленные файлы к лекции:</label> 
     </div>
 </div>
 <div class="container">
@@ -68,24 +80,24 @@
             <a>
                 {{file.fileName}}
                 <app-download [fileName]="file.fileName"></app-download>
-                <button *ngIf="!viewMode" class="btn btn-outline-danger ml-3" (click)="delete(file.fileName)"><i class="fa fa-trash"></i> Delete</button>
+                <button *ngIf="!viewMode" class="btn btn-outline-danger ml-2" (click)="delete(file.fileName)"><i class="fa fa-trash"></i> Удалить</button>
             </a>
         </li>
     </ul>
 </div>
 <div class="row">
     <div class="col-md-12" *ngIf="viewMode && lecture.testId != null">
-        <div class="form-group">
-            <label>Навзание теста</label>
-            <input class="form-control" [(ngModel)]="lecture.testName"
-             [readonly]="viewMode">
-        </div>
-        <button *ngIf="showLink" class="btn btn-outline-primary" (click)="RedirectToTest()"><i class="fa fa-external-link"></i> Перейти к тестированию</button>
-        <button *ngIf="!showLink" class="btn btn-outline-primary" (click)="viewTestModal.show(lecture.testId)"><i class="fa fa-eye"></i> Просмотр теста</button>
+        <!-- <div class="form-group"> -->
+            <label style="font-size: 1rem;"><b>Навзание теста:</b> {{lecture.testName}}</label><br>
+            <!-- <input class="form-control" [(ngModel)]="lecture.testName"
+             [readonly]="viewMode"> -->
+        <!-- </div> -->
+        <button *ngIf="showLink" class="btn btn-md btn-outline-primary" (click)="RedirectToTest()"><i class="fa fa-external-link"></i> Перейти к тестированию</button>
+        <button *ngIf="!showLink" class="btn btn-md btn-outline-primary" (click)="viewTestModal.show(lecture.testId)"><i class="fa fa-eye"></i> Просмотр теста</button>
     </div>
     <div class="col-md-12" *ngIf="!viewMode">
         <div class="form-group">
-            <label>Прикрепить тест. Название теста</label>
+            <label style="font-size: 1rem;">Прикрепить тест. Название теста: </label>
             <div class="input-group">
                 <input class="form-control" [(ngModel)]="lecture.testName"
                 (click)="openSelectTestModal()" readonly>
@@ -105,17 +117,17 @@
 
 <div class="row">
     <div class="col-md-12" *ngIf="viewMode && lecture.practiceId != null">
-        <div class="form-group">
-            <label>Навзание практического задания</label>
-            <input class="form-control" [(ngModel)]="lecture.practiceName"
-             [readonly]="viewMode">
-        </div>
-        <button *ngIf="showLink" class="btn btn-outline-primary" (click)="RedirectToPractice()"><i class="fa fa-external-link"></i> Перейти к практическому заданию</button>
-        <button *ngIf="!showLink" class="btn btn-outline-primary" (click)="viewPracticeModal.show(lecture.practiceId)"><i class="fa fa-eye"></i> Просмотр практического задания</button>
+        <!-- <div class="form-group"> -->
+            <label style="font-size: 1rem;"><b>Навзание практического задания:</b> {{lecture.practiceName}}</label> <br>
+            <!-- <input class="form-control" [(ngModel)]="lecture.practiceName"
+             [readonly]="viewMode"> -->
+        <!-- </div> -->
+        <button *ngIf="showLink" class="btn btn-md btn-outline-primary" (click)="RedirectToPractice()"><i class="fa fa-external-link"></i> Перейти к практическому заданию</button>
+        <button *ngIf="!showLink" class="btn btn-md btn-outline-primary" (click)="viewPracticeModal.show(lecture.practiceId)"><i class="fa fa-eye"></i> Просмотр практического задания</button>
     </div>
     <div class="col-md-12" *ngIf="!viewMode">
         <div class="form-group">
-            <label>Прикрепить практическое задание. Название практического задания</label>
+            <label style="font-size: 1rem;">Прикрепить практическое задание. Название практического задания: </label>
             <div class="input-group">
                 <input class="form-control" [(ngModel)]="lecture.practiceName"
                 (click)="openSelectPracticeModal()" readonly>

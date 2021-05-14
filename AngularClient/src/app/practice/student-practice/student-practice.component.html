@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-12">
-        <p class="text-center" style="font-size: 1.2rem;">{{practice.name}}</p>
+        <p class="text-center" style="font-size: 1.3rem;"><b>{{practice.name}}</b></p>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12">
-        <label style="font-size: 1rem;">Название предмета: {{practice.subjectName}}</label>
+        <label style="font-size: 1rem;"><b>Название предмета:</b> {{practice.subjectName}}</label>
     </div>
 </div> 
 <div class="row" *ngIf="editMode == true">
@@ -16,7 +16,7 @@
 <div class="row" *ngIf="editMode == false">
     <div class="col-md-4">
         <div class="form-group">
-            <label for="practiceScore" style="font-size: 1rem;">Балл:</label>
+            <label for="practiceScore" style="font-size: 1rem;"><b>Балл:</b></label>
             <input type="number" maxlength="3" max="100" min="0" step="0.1" id="practiceScore" class="form-control" [(ngModel)]="studentPractice.practiceScore" name="practiceScore" />
         </div>
     </div>
@@ -27,7 +27,7 @@
 </div>
 <div class="row" *ngIf="studentPractice.studentPracticeFiles.length != 0">
     <div class="col-md-12">
-        <label style="font-size: 1rem;">Прикрепленные работы:</label> 
+        <label style="font-size: 1rem;"><b>Прикрепленные работы:</b></label> 
     </div>
 </div>
 <div class="container">
@@ -36,14 +36,14 @@
             <a>
                 {{file.fileName}}
                 <app-download [fileName]="file.fileName"></app-download>
-                <button *ngIf="editMode == true" class="btn btn-outline-danger ml-3" (click)="delete(file.fileName)"><i class="fas fa-trash-alt"></i> Удалить</button>
+                <button *ngIf="editMode == true" class="btn btn-outline-danger ml-2" (click)="delete(file.fileName)"><i class="fas fa-trash-alt"></i> Удалить</button>
             </a>
         </li>
     </ul>
 </div>
 <div class="row" *ngIf="practice.practiceFiles.length != 0">
     <div class="col-md-12">
-        <label style="font-size: 1rem;">Методические указани:</label>
+        <label style="font-size: 1rem;"><b>Методические указани:</b></label>
     </div>
 </div>
 <div class="container">

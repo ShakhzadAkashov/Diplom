@@ -14,7 +14,7 @@
                 <div class="modal-body">
                         
                             <div class="form-group">
-                                <label for="testName" style="font-size: 1.1rem;">Прикрепить к предмету. Название предмета</label>
+                                <label for="testName" style="font-size: 1.1rem;">Прикрепить к предмету. Название предмета: *</label>
                                 <div class="input-group">
                                     <input class="form-control" [(ngModel)]="test.subjectName" name="testName" (click)="openSelectSubjectModal()"
                                         readonly>
@@ -36,7 +36,7 @@
 
                     <div class=" border-bottom border-dark" *ngFor="let item of test.testQuestions; let i = index">
                         <div class="form-group">
-                            <label for="Test_Name">Название {{i+1}} вопроса: *</label>
+                            <label for="Test_Name" style="font-size: 1rem;">Название {{i+1}} вопроса: *</label>
                             <div class="input-group">
                                 <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="test.testQuestions[i].name"
                                     placeholder="Название вопроса" required>
@@ -48,7 +48,7 @@
 
                         <div class="" *ngFor="let item of test.testQuestions[i].testQuestionAnswer; let j = index">
                             <div class="form-group">
-                                <label for="Test_Name">Название {{j+1}} ответа на вопрос: (Галочка - правильность варианта) *</label>
+                                <label for="Test_Name" style="font-size: 1rem;">Название {{j+1}} ответа на вопрос (Галочка - правильность варианта): *</label>
                                 <div class="input-group">
                                     <input class="form-control" [ngModelOptions]="{standalone: true}"
                                         [(ngModel)]="test.testQuestions[i].testQuestionAnswer[j].name" placeholder="Название вопроса" required>

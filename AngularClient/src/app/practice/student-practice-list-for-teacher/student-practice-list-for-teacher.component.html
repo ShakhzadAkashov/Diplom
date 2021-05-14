@@ -77,8 +77,8 @@
             <td>
                 <span class="p-column-title">{{record.subjectName}}</span>
             </td>
-            <td>
-                <span class="p-column-title">{{record.practiceScore}} %</span>
+            <td class="text-center">
+                <span class="p-column-title">{{record.practiceScore | number: '1.0-1'}} </span>
             </td>
             <td>
                 <span class="p-column-title" style="color:rgb(0, 255, 0)" *ngIf="record.isAccept == true">

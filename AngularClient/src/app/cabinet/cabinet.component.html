@@ -18,23 +18,23 @@
             </div>
             <div class="col-lg-9">
                 <div class="form-group">
-                    <label>Название учетной записи пользователя: </label>
+                    <label style="font-size: 1rem;">Название учетной записи пользователя: </label>
                     <input class="form-control" [readonly]="!editMode" [(ngModel)]="userDetails.userName">
                 </div>
                 <div class="form-group">
-                    <label>Имя пользователя: </label>
+                    <label style="font-size: 1rem;">Имя пользователя: </label>
                     <input class="form-control" [readonly]="!editMode" [(ngModel)]="userDetails.firstName">
                 </div>
                 <div class="form-group">
-                    <label>Фамилия пользователя: </label>
+                    <label style="font-size: 1rem;">Фамилия пользователя: </label>
                     <input class="form-control" [readonly]="!editMode" [(ngModel)]="userDetails.lastName">
                 </div>
                 <div class="form-group">
-                    <label>Отчество пользователя: </label>
+                    <label style="font-size: 1rem;">Отчество пользователя: </label>
                     <input class="form-control" [readonly]="!editMode" [(ngModel)]="userDetails.patronymic">
                 </div>
                 <div class="form-group" *ngIf="editMode">
-                    <label>День рождения: </label>
+                    <label style="font-size: 1rem;">День рождения: </label>
                     <input type="date" [readonly]="!editMode" class="form-control">
                 </div>
             </div>
@@ -84,15 +84,15 @@
                 </div> -->
                 
                 <div class="form-group">
-                    <label>Почта: </label>
+                    <label style="font-size: 1rem;">Почта: </label>
                     <input class="form-control" [readonly]="!editMode" [(ngModel)]="userDetails.email">
                 </div>
                 <div class="form-group" *ngIf="!editMode">
-                    <label>День рождения: </label>
+                    <label style="font-size: 1rem;">День рождения: </label>
                     <input type="date" [readonly]="!editMode" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>Номер телефона: </label>
+                    <label style="font-size: 1rem;">Номер телефона: </label>
                     <input class="form-control" [readonly]="!editMode" [(ngModel)]="userDetails.phoneNumber">
                 </div>
             </div>
@@ -101,7 +101,7 @@
     <div class="col-md-12">
         <div class="d-flex justify-content-center">
             <button class="btn btn-outline-primary px-3 py-2" (click)="save(userDetails)"
-                *ngIf="editMode">Сохранить</button>
+                *ngIf="editMode"><i class="fa fa-save"></i> Сохранить</button>
         </div>
     </div>
 </div>

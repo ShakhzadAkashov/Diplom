@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12 pb-3 pt-3">
-        <span style="font-size:1.1rem;">Раздел для комметариев</span>
+        <span style="font-size:1rem;"><b>Раздел для комметариев:</b></span>
     </div>
     <div class="col-md-12">
         <div class ="col-md-12 block mb-3 rounded">
@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <textarea class="rounded" [(ngModel)]="comment.commentContent" style="width: 100%; height: 10rem; resize: none; outline: none;"></textarea>
+                <textarea class="rounded" [(ngModel)]="comment.commentContent" style="width: 100%;max-height: 10rem; min-height: 3rem;  outline: none;"></textarea>
             </div>
             <div class="col-md-12 mb-3">
                 <button type="button" class="btn btn-outline-primary float-right mt-3" (click)="create()"> <i
