@@ -78,26 +78,32 @@
                 </div>
             </td> -->
             <td>
-                <div class="form-group">
-                    <b><label>{{i+1}}.</label><span> {{record.name}}</span></b>
+                <div>
+                    <b><label style="font-size: 1.2rem; margin-bottom:0;">{{i+1}}.</label><span style="font-size: 1.2rem;"> {{record.name}}</span></b>
                 </div>
                 <!-- <input class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.name"
                                     placeholder="Название вопроса" required> -->
-                <div class="" *ngFor="let item of record.testQuestionAnswer; let j = index">
-                    <div class="form-group">
-                        <label for="Test_Name">{{i+1}}.{{j+1}}</label>
-                        <input type="checkbox" style="" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.testQuestionAnswer[j].isCorrect"/>
-                        <span> {{record.testQuestionAnswer[j].name}}</span>
-                        <!-- <div class="input-group">
-                            <input class="form-control" [ngModelOptions]="{standalone: true}"
-                                [(ngModel)]="record.testQuestionAnswer[j].name" placeholder="Название вопроса" required>
-                            <div class="input-group-append">
-                                <input type="checkbox" style="height: 2.7em; width: 2.7em;" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.testQuestionAnswer[j].isCorrect"/>
-                                
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
+                <ol style="margin: 0; padding-left:1.5rem;" type="a">
+                    <li style="font-size: 1.15rem;" *ngFor="let item of record.testQuestionAnswer; let j = index">
+                                <!-- <label for="Test_Name">{{i+1}}.{{j+1}}</label>
+                                <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.testQuestionAnswer[j].isCorrect"/>
+                                <span> {{record.testQuestionAnswer[j].name}}</span> -->
+
+
+                                <label style="margin-bottom: 0;">
+                                    <input style="height: 1rem; width: 1rem; vertical-align: middle;" type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.testQuestionAnswer[j].isCorrect"/><span style="font-size: 1.1rem;"> {{record.testQuestionAnswer[j].name}}</span>
+                                </label>
+
+                                <!-- <div class="input-group">
+                                    <input class="form-control" [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="record.testQuestionAnswer[j].name" placeholder="Название вопроса" required>
+                                    <div class="input-group-append">
+                                        <input type="checkbox" style="height: 2.7em; width: 2.7em;" [ngModelOptions]="{standalone: true}" [(ngModel)]="record.testQuestionAnswer[j].isCorrect"/>
+                                        
+                                    </div>
+                                </div> -->
+                    </li>
+                </ol>
             </td>
             <!-- <td>
                 <button class="btn btn-sm btn-outline-primary" (click)="viewLectureeModal.show(record)"><i class="fa fa-eye"></i>Просмотр файлов</button>
