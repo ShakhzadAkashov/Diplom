@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { timestamp } from 'rxjs/operators';
 import { Practice } from 'src/app/models/Practice';
+import { UserRole } from 'src/app/models/Roles';
 import { StudentPracticeFile } from 'src/app/models/StudentPracticeFile';
 import { PracticeService } from 'src/app/shared/practiceService/practice-service.service';
 import { StudentPracticeService } from 'src/app/shared/studentPracticeService/student-practice.service';
@@ -22,6 +23,8 @@ export class StudentPracticeComponent implements OnInit {
   public response : {dbPath : ''}
   fileName = '';
   editMode = true;
+  role;
+  userRoles = UserRole;
 
   constructor(
     private service: PracticeService,
@@ -34,6 +37,7 @@ export class StudentPracticeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.role = this.getUserRole();
     this.editMode = Boolean(JSON.parse(this.editModeBool));
     this.practice.practiceFiles = [];
     this.studentPractice.practiceScore = 0.0;
@@ -45,6 +49,12 @@ export class StudentPracticeComponent implements OnInit {
     else{
       this.getStudentPracticeById();
     }
+  }
+
+  getUserRole(){
+    var payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+    var userRole = payLoad.role;
+    return userRole;
   }
 
   getPracticeById(){
@@ -108,5 +118,13 @@ export class StudentPracticeComponent implements OnInit {
     this.studentPracticeService.createOrEdit(this.studentPractice).subscribe(()=>{
       this.router.navigate(['/home/studentPracticeListForTeacher']).then(f => { location.reload(true) });
     });
+  }
+
+  goBack(){
+    if(this.role == this.userRoles.Admin || this.role == this.userRoles.Teacher){
+      this.router.navigate(['/home/studentPracticeListForTeacher']);
+    }else{
+      this.router.navigate(['/home/studentPracticeList']);
+    }
   }
 }

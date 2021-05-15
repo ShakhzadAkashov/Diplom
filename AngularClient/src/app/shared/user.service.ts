@@ -118,4 +118,5 @@ export class ApplicationUser{
   public imgPath: string;
   public isBlocked: boolean;
   public role: string;
+  public dateBirthday: Date;
 }

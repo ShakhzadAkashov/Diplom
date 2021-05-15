@@ -10,4 +10,5 @@ export class UserModel{
     password: string;
     isBlocked: boolean;
     role: string;
+    dateBirthday: Date;
 }

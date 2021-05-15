@@ -57,11 +57,11 @@ export class LectureListComponent implements OnInit {
   }
 
   viewLecture(id:number){
-    this.router.navigate(['/home/lecture'], { queryParams: { id: id, edit:false } }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/lecture'], { queryParams: { id: id, edit:false } })/*.then(f => { location.reload(true) });*/
   }
 
   editLecture(id:number){
-    this.router.navigate(['/home/lecture'], { queryParams: { id: id, edit:true } }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/lecture'], { queryParams: { id: id, edit:true } })/*.then(f => { location.reload(true) });*/
   }
 
   deleteLectureItem(id:number){

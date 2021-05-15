@@ -18,7 +18,7 @@ namespace TestDiplom.Models
         public string PhoneNumber { get; set; }
         public string ImgPath { get; set; }
         public bool? IsBlocked { get; set; }
-
         public string Role { get; set; }
+        public DateTime? DateBirthday { get; set; }
     }
 }

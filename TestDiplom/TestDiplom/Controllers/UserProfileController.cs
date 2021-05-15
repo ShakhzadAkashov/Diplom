@@ -45,7 +45,8 @@ namespace TestDiplom.Controllers
                 PhoneNumber = user.PhoneNumber,
                 IsBlocked = user.IsBlocked,
                 ImgPath = user.ImgPath,
-                Role = role.Count > 0 ? role.FirstOrDefault() : null
+                Role = role.Count > 0 ? role.FirstOrDefault() : null,
+                DateBirthday = user.DateBirthday
             };
 
             return a;
@@ -102,6 +103,7 @@ namespace TestDiplom.Controllers
             user.PhoneNumber = u.PhoneNumber;
             user.IsBlocked = u.IsBlocked;
             user.Role = role.FirstOrDefault();
+            user.DateBirthday = u.DateBirthday;
             
             return user;
         }
@@ -125,6 +127,7 @@ namespace TestDiplom.Controllers
             user.UserName = userProfile.UserName;
             user.PhoneNumber = userProfile.PhoneNumber;
             user.ImgPath = userProfile.ImgPath;
+            user.DateBirthday = userProfile.DateBirthday;
             try
             {
                 var result = await _userManager.UpdateAsync(user);

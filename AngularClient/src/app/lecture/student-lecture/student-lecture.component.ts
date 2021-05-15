@@ -32,7 +32,7 @@ export class StudentLectureComponent implements OnInit {
   }
 
   viewLecture(id:number){
-    this.router.navigate(['/home/lecture'], { queryParams: { id: id, edit:false } }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/lecture'], { queryParams: { id: id, edit:false } })/*.then(f => { location.reload(true) });*/
   }
 
 }

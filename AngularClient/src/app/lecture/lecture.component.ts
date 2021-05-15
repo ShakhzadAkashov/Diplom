@@ -237,5 +237,13 @@ export class LectureComponent implements OnInit {
     }
     this.router.navigate(['/home/studentPractice'], { queryParams: { id: this.lecture.practiceId, edit:true,studentPracticeId: StudentPracticeId } });
   }
+
+  goBack(){
+    if(this.role == this.userRoles.Admin || this.role == this.userRoles.Teacher){
+      this.router.navigate(['/home/lectureList']);
+    }else{
+      this.router.navigate(['/home/studentLecture']);
+    }
+  }
 }
 

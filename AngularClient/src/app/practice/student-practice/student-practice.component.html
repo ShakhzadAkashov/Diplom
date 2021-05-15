@@ -59,10 +59,11 @@
 
 <app-comment [(StudentPracticeId)] ="this.studentPracticeId"></app-comment>
 
-<div class="row" *ngIf="editMode == true">
+<div class="row">
     <div class="col-md-12">
         <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-primary px-3 py-2" (click)="save()"><i class="fa fa-paper-plane"></i> Отправить работу</button>
+            <button class="btn btn-md btn-outline-primary mr-5"  (click)="goBack()"><i class="fa fa-arrow-left"></i> Назад</button>
+            <button  *ngIf="editMode == true" class="btn btn-outline-primary px-3 py-2" (click)="save()"><i class="fa fa-paper-plane"></i> Отправить работу</button>
         </div>
     </div>
 </div>

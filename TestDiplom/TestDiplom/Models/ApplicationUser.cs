@@ -20,5 +20,6 @@ namespace TestDiplom.Models
         public string Patronymic { get; set; }
         public string ImgPath { get; set; }
         public bool? IsBlocked { get; set; }
+        public DateTime? DateBirthday { get; set; }
     }
 }
