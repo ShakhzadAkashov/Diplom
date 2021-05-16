@@ -26,4 +26,8 @@ export class StudentSubjectServiceService {
   createOrEdit(studentSubject:StudentSubject){
     return this.http.post(this.BaseURI + '/StudentSubject/CreateOrEdit',studentSubject);
   }
+
+  getStudentSubjectStatistic(Id){
+    return this.http.get(this.BaseURI + '/StudentSubject/GetStudentSubjectStatistic',{params: {id:Id}});
+  }
 }

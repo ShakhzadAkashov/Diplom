@@ -53,7 +53,7 @@ export class StudentPracticeListComponent implements OnInit {
       if(i.practiceId == Id && i.studentId == this.userId)
       StudentPracticeId = i.id;
     }
-    this.router.navigate(['/home/studentPractice'], { queryParams: {id: Id, edit:true,studentPracticeId: StudentPracticeId} }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/studentPractice'], { queryParams: {id: Id, edit:true,studentPracticeId: StudentPracticeId} })/*.then(f => { location.reload(true) });*/
   }
 
   getPracticeScore(practiceId){

@@ -5,4 +5,5 @@ export class StudentSubject{
     subjectId: number;
     subjectName: string;
     subjectScore: number;
+    academicStatus: string;
 }

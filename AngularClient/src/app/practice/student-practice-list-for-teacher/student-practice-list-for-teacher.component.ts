@@ -48,6 +48,6 @@ export class StudentPracticeListForTeacherComponent implements OnInit {
   }
 
   RedirectToStudentPractice(Id:number,StudentPracticeId : number){
-    this.router.navigate(['/home/studentPractice'], { queryParams: { id: Id, edit:false, studentPracticeId: StudentPracticeId} }).then(f => { location.reload(true) });
+    this.router.navigate(['/home/studentPractice'], { queryParams: { id: Id, edit:false, studentPracticeId: StudentPracticeId} })/*.then(f => { location.reload(true) });*/
   }
 }

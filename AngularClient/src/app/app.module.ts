@@ -68,6 +68,7 @@ import { StudentPracticeService } from './shared/studentPracticeService/student-
 import { StudentPracticeListForTeacherComponent } from './practice/student-practice-list-for-teacher/student-practice-list-for-teacher.component';
 import { CommentService } from './shared/commentService/comment.service';
 import { CommentComponent } from './comment/comment.component';
+import { StudentSubjectStatisticModalComponent } from './subject/student-subject-statistic-modal/student-subject-statistic-modal.component';
 
 registerLocaleData(ru);
 
@@ -110,7 +111,8 @@ registerLocaleData(ru);
     StudentTestComponent,
     StudentPracticeComponent,
     StudentPracticeListForTeacherComponent,
-    CommentComponent
+    CommentComponent,
+    StudentSubjectStatisticModalComponent
   ],
   imports: [
     BrowserModule,

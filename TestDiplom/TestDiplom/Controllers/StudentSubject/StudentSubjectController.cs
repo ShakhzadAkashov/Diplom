@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestDiplom.Models;
+using TestDiplom.Models.Practice;
 using TestDiplom.Models.StudentSubject;
+using TestDiplom.Models.test;
 
 namespace TestDiplom.Controllers.StudentSubject
 {
@@ -119,6 +121,7 @@ namespace TestDiplom.Controllers.StudentSubject
 
             foreach (var item in sub)
             {
+                var score = await CountSubjectScore(item.SubjectId);
                 var s = new StudentSubjectModel
                 {
                     Id = item.Id,
@@ -126,8 +129,8 @@ namespace TestDiplom.Controllers.StudentSubject
                     StudentId = item.StudentId,
                     SubjectId = item.SubjectId,
                     SubjectName = item.SubjectFk.Name,
-                    SubjectScore = await CountSubjectScore(item.SubjectId)
-
+                    SubjectScore = score,
+                    AcademicStatus = GetAcademicStatus(score)
                 };
 
                 studentSubjects.Add(s);
@@ -178,6 +181,65 @@ namespace TestDiplom.Controllers.StudentSubject
             }
 
             return testScore + practiceScore;
+        }
+
+        protected string GetAcademicStatus(double score)
+        {
+            if (score >= 90.0)
+            {
+                return "Отлично";
+            }
+            else if (score >= 70)
+            {
+                return "Хорошо";
+            }
+            else if (score >= 50)
+            {
+                return "Удовлетворительно";
+            }
+            else
+            {
+                return "Не удовлетворительно";
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetStudentSubjectStatistic")]
+        //GET : /api/StudentSubject/GetStudentSubjectStatistic
+        public async Task<StudentSubjectStatisticModel> GetStudentSubjectStatistic(int id)
+        {
+            var sss = new StudentSubjectStatisticModel();
+            sss.PracticeList = new List<PracticeModel>();
+            sss.TestList = new List<TestModel>();
+
+            var practicelist = await _context.Practices.Where(p => p.SubjectId == id).ToListAsync();
+
+            foreach (var p in practicelist)
+            {
+                var practice = new PracticeModel();
+
+                practice.Id = p.Id;
+                practice.Name = p.Name;
+                practice.OwnerId = p.OwnerId;
+
+                sss.PracticeList.Add(practice);
+            }
+
+            var testList = await _context.Tests.Where(p => p.SubjectId == id).ToListAsync();
+
+            foreach (var item in testList)
+            {
+                var test = new TestModel();
+                test.Id = item.Id;
+                test.Name = item.Name;
+                test.OwnerId = item.OwnerId;
+                test.IdForView = item.IdForView;
+
+                sss.TestList.Add(test);
+            }
+
+            return sss;
         }
 
     }
