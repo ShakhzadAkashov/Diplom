@@ -57,7 +57,7 @@
     </ul>
 </div>
 
-<app-comment [(StudentPracticeId)] ="this.studentPracticeId"></app-comment>
+<app-comment *ngIf="studentPractice.id" [(StudentPracticeId)] ="this.studentPracticeId"></app-comment>
 
 <div class="row">
     <div class="col-md-12">
