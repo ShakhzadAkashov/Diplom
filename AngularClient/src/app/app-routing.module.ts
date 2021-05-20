@@ -22,6 +22,7 @@ import { StudentTestComponent } from './test/student-test/student-test.component
 import { StudentPracticeListComponent } from './practice/student-practice-list/student-practice-list.component';
 import { StudentPracticeComponent } from './practice/student-practice/student-practice.component';
 import { StudentPracticeListForTeacherComponent } from './practice/student-practice-list-for-teacher/student-practice-list-for-teacher.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'/user/login', pathMatch:'full'},
@@ -47,6 +48,7 @@ const routes: Routes = [
     {path: 'practice', component: PracticeListComponent, canActivate:[AuthGuard] },
     {path: 'studentPracticeList', component: StudentPracticeListComponent, canActivate:[AuthGuard] },
     {path: 'studentPracticeListForTeacher', component: StudentPracticeListForTeacherComponent, canActivate:[AuthGuard] },
+    {path: 'statistics', component: StatisticsComponent, canActivate:[AuthGuard] },
     {path: 'studentPractice', component: StudentPracticeComponent, canActivate:[AuthGuard] },
     {path: 'admin/users', component: UsersComponent, canActivate:[AuthGuard] }
   ]},

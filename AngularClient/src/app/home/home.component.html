@@ -145,7 +145,7 @@
         <li nz-submenu nzTitle="Статистика" nzIcon="form">
           <ul>
             <li nz-menu-item nzMatchRouter>
-              <a>Статистика</a>
+              <a routerLink="/home/statistics">Статистика</a>
             </li>
           </ul>
         </li>
@@ -153,7 +153,7 @@
     </nz-sider>
     <nz-layout>
       <nz-header>
-        <div class="app-header">
+        <div class="app-header"  (click)="Change()">
           <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
               <i class="trigger"
                  nz-icon
