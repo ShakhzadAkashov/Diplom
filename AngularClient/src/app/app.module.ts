@@ -72,6 +72,7 @@ import { StudentSubjectStatisticModalComponent } from './subject/student-subject
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { StatisticService } from './shared/statisticService/statistic.service';
+import { ChangePasswordModalComponent } from './admin/users/change-password-modal/change-password-modal.component';
 
 registerLocaleData(ru);
 
@@ -116,7 +117,8 @@ registerLocaleData(ru);
     StudentPracticeListForTeacherComponent,
     CommentComponent,
     StudentSubjectStatisticModalComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ChangePasswordModalComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { UserModel } from '../models/UserModel';
+import { ChangePassword } from '../models/ChangePassword';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,10 @@ export class UserService {
 
   deleteUser(Id){
     return this.http.delete(this.BaseURI + '/UserProfile/Delete',{params: {id:Id}});
+  }
+
+  changePassword(model:ChangePassword){
+    return this.http.post(this.BaseURI + '/UserProfile/ChangPassword',model);
   }
 
   roleMatch(allowedRole): boolean{
