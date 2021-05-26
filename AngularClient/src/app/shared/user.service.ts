@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { UserModel } from '../models/UserModel';
 import { ChangePassword } from '../models/ChangePassword';
+import { URI } from '../models/URI';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class UserService {
 
   constructor(private fb:FormBuilder, private http:HttpClient) { }
 
-  readonly BaseURI = 'https://localhost:44352/api';
+  //readonly BaseURI = 'https://localhost:44352/api';
+  private readonly BaseURI = URI.BaseURI;
 
   formModel = this.fb.group({
     UserName: ['', Validators.required],
