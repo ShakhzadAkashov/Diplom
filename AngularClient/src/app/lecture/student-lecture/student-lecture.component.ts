@@ -7,7 +7,7 @@ import { ViewLectureModalComponent } from '../view-lecture-modal/view-lecture-mo
 @Component({
   selector: 'app-student-lecture',
   templateUrl: './student-lecture.component.html',
-  styleUrls: ['./student-lecture.component.css']
+  styleUrls: ['./student-lecture.component.scss']
 })
 export class StudentLectureComponent implements OnInit {
 

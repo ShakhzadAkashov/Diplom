@@ -8,7 +8,7 @@ import { ViewPracticeFileModalComponent } from '../view-practice-file-modal/view
 @Component({
   selector: 'app-student-practice-list-for-teacher',
   templateUrl: './student-practice-list-for-teacher.component.html',
-  styleUrls: ['./student-practice-list-for-teacher.component.css']
+  styleUrls: ['./student-practice-list-for-teacher.component.scss']
 })
 export class StudentPracticeListForTeacherComponent implements OnInit {
 

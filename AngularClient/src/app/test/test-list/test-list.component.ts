@@ -10,7 +10,7 @@ import { UserRole } from 'src/app/models/Roles';
 @Component({
   selector: 'app-test-list',
   templateUrl: './test-list.component.html',
-  styleUrls: ['./test-list.component.css']
+  styleUrls: ['./test-list.component.scss']
 })
 export class TestListComponent implements OnInit {
 

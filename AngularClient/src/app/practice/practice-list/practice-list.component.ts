@@ -10,7 +10,7 @@ import { UserRole } from 'src/app/models/Roles';
 @Component({
   selector: 'app-practice-list',
   templateUrl: './practice-list.component.html',
-  styleUrls: ['./practice-list.component.css']
+  styleUrls: ['./practice-list.component.scss']
 })
 export class PracticeListComponent implements OnInit {
 

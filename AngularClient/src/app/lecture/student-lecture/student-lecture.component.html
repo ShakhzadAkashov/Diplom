@@ -4,10 +4,12 @@
     [filterDelay]="0" [globalFilterFields]="['name','name','.name','name']">
     <ng-template pTemplate="caption">
         <div class="table-header">
-            <span>ВЕСЬ СПИСОК ЛЕКЦИЙ</span>
-            <span>
-                <button class="btn btn-md btn-outline-primary ml-3" (click)="getAll()"><i class="fa fa-refresh"></i> Обновить</button>
-            </span>
+            <div class="col-md-12">
+                <span class="mr-3">ВЕСЬ СПИСОК ЛЕКЦИЙ</span>
+                <span>
+                    <button class="btn btn-md btn-outline-primary" (click)="getAll()"><i class="fa fa-refresh"></i> Обновить</button>
+                </span>
+            </div>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -42,6 +44,7 @@
     <ng-template pTemplate="body" let-record>
         <tr class="p-selectable-row">
             <td style="width: 130px">
+                <span class="p-column-title">Действия</span>
                 <div class="btn-group dropdown">
                     <button class="dropdown-toggle btn btn-sm btn-outline-primary" id="dropdownMenuButton"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                         <i class="fa fa-cog"></i><span class="caret"></span>
@@ -56,12 +59,15 @@
                 </div>
             </td>
             <td>
+                <span class="p-column-title">Название лекции</span>
                 {{record.name}}
             </td>
             <td>
+                <span class="p-column-title">Название предмета</span>
                 {{record.subjectName}}
             </td>
             <td>
+                <span class="p-column-title">Прикрепленные файлы</span>
                 <button class="btn btn-sm btn-outline-primary" (click)="viewLectureeModal.show(record)"><i class="fa fa-eye"></i>Просмотр файлов</button>
             </td>
             

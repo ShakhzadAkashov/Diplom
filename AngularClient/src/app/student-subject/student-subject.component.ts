@@ -6,7 +6,7 @@ import { StudentSubjectStatisticModalComponent } from '../subject/student-subjec
 @Component({
   selector: 'app-student-subject',
   templateUrl: './student-subject.component.html',
-  styleUrls: ['./student-subject.component.css']
+  styleUrls: ['./student-subject.component.scss']
 })
 export class StudentSubjectComponent implements OnInit {
 

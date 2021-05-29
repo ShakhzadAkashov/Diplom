@@ -4,10 +4,12 @@
     [filterDelay]="0" [globalFilterFields]="['name','name','.name','name']">
     <ng-template pTemplate="caption">
         <div class="table-header">
-            <span>ВЕСЬ СПИСОК ПРЕДМЕТОВ</span>
-            <span>
-                <button class="btn btn-md btn-outline-primary ml-3" (click)="getAll()"><i class="fa fa-refresh"></i> Обновить</button>
-            </span>
+            <div class="col-md-12">
+                <span>ВЕСЬ СПИСОК ПРЕДМЕТОВ</span>
+                <span>
+                    <button class="btn btn-md btn-outline-primary ml-3" (click)="getAll()"><i class="fa fa-refresh"></i> Обновить</button>
+                </span>
+            </div>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -84,6 +86,7 @@
                 </div>
             </td> -->
             <td>
+                <span class="p-column-title">Название</span>
                 {{record.subjectName}}
             </td>
             <!-- <td>
@@ -97,10 +100,12 @@
                     Не подписан
                 </span>
             </td> -->
-            <td class="text-center">
+            <td>
+                <span class="p-column-title">Количестов баллов</span>
                 {{record.subjectScore | number: '1.0-1'}}
             </td>
             <td>
+                <span class="p-column-title">Статус успеваемости</span>
                 <span style="color:rgb(0, 255, 0)" *ngIf="record.academicStatus == 'Отлично'">
                     {{record.academicStatus}}
                 </span>
