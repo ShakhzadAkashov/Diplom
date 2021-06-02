@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TestDiplom.Models;
+using TestDiplom.Models.SendMessage;
 using TestDiplom.Models.StudentPractice;
 
 namespace TestDiplom.Controllers.StudentPractice
@@ -16,9 +18,13 @@ namespace TestDiplom.Controllers.StudentPractice
     public class StudentPracticeController : ControllerBase
     {
         private readonly AuthenticationContext _context;
-        public StudentPracticeController(AuthenticationContext context) 
+        private UserManager<ApplicationUser> _userManager;
+        private ISendMessage _sendMessage;
+        public StudentPracticeController(AuthenticationContext context, UserManager<ApplicationUser> userManager, ISendMessage sendMessage) 
         {
             _context = context;
+            _userManager = userManager;
+            _sendMessage = sendMessage;
         }
 
         [HttpPost]
@@ -93,7 +99,12 @@ namespace TestDiplom.Controllers.StudentPractice
         //POST : /api/StudentPractice/Update
         public async Task Update(StudentPracticeModel model)
         {
-            var updateStudentPractice = await _context.StudentPractices.FirstOrDefaultAsync(s => s.Id == model.Id);
+            string userId = User.Claims.First(c => c.Type == "UserID").Value;
+            var user = await _userManager.FindByIdAsync(userId);
+            var role = await _userManager.GetRolesAsync(user);
+
+            var updateStudentPractice = await _context.StudentPractices
+                .Include(s => s.StudentFk).FirstOrDefaultAsync(s => s.Id == model.Id);
 
             updateStudentPractice.PracticeId = model.PracticeId;
             updateStudentPractice.StudentId = model.StudentId;
@@ -106,6 +117,28 @@ namespace TestDiplom.Controllers.StudentPractice
             await InsertFiles(model.StudentPracticeFiles, model.Id);
 
             await _context.SaveChangesAsync();
+
+            if (role.FirstOrDefault() == "Teacher")
+            {
+                var status = "";
+                if (model.IsAccept == true)
+                {
+                    status = "Принято";
+                }
+                else
+                {
+                    status = "Отправлено на доработку";
+                }
+                string message = $"Практическое заданиие {model.PracticeName} было проверено. Балл: {model.PracticeScore}. Статус: {status}";
+                string firstName = updateStudentPractice.StudentFk.FirstName ?? "";
+                string lastName = updateStudentPractice.StudentFk.LastName ?? "";
+                string patronymic = updateStudentPractice.StudentFk.Patronymic ?? "";
+                string fullName = firstName + " " + lastName + " " + patronymic;
+                string letterHeader = "Практическое задание";
+
+                _sendMessage.SendMessageToMail(updateStudentPractice.StudentFk.Email, message, fullName, letterHeader);
+            }
+
         }
 
 
