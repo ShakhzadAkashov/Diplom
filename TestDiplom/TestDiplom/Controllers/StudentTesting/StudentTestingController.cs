@@ -73,7 +73,7 @@ namespace TestDiplom.Controllers.StudentTesting
                 string fullName = firstName + " " + lastName + " " + patronymic;
                 string letterHeader = "Прохождение теста";
 
-                _sendMessage.SendMessageToMail(user.Email,message,fullName, letterHeader);
+                _sendMessage.SendMessageToMail(user.Email,message,fullName, letterHeader, false);
 
                 return Ok(result);
             }
@@ -109,7 +109,7 @@ namespace TestDiplom.Controllers.StudentTesting
             string fullName = firstName + " " + lastName + " " + patronymic;
             string letterHeader = "Перепрохождение теста";
 
-            _sendMessage.SendMessageToMail(user.Email, message, fullName, letterHeader);
+            _sendMessage.SendMessageToMail(user.Email, message, fullName, letterHeader,false);
 
 
         }

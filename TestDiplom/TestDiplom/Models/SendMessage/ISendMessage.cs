@@ -7,6 +7,6 @@ namespace TestDiplom.Models.SendMessage
 {
     public interface ISendMessage
     {
-        void SendMessageToMail(string email, string message, string fullNameTo,string letterHeader);
+        void SendMessageToMail(string email, string message, string fullNameTo,string letterHeader, bool isHTML);
     }
 }

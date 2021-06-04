@@ -10,7 +10,7 @@ namespace TestDiplom.Models.SendMessage
 {
     public class SendMessage:ISendMessage
     {
-        public void SendMessageToMail(string email, string message, string fullNameTo, string letterHeader) 
+        public void SendMessageToMail(string email, string message, string fullNameTo, string letterHeader, bool isHTML) 
         {
             try 
             {
@@ -33,8 +33,9 @@ namespace TestDiplom.Models.SendMessage
                 myMail.SubjectEncoding = Encoding.UTF8;
 
                 myMail.Body = message;
-                myMail.BodyEncoding = Encoding.UTF8;
-                myMail.IsBodyHtml = false;
+                if(isHTML == false)
+                    myMail.BodyEncoding = Encoding.UTF8;
+                myMail.IsBodyHtml = isHTML;
 
                 mySmtpClient.Send(myMail);
             }

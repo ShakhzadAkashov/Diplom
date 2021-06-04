@@ -136,7 +136,7 @@ namespace TestDiplom.Controllers.StudentPractice
                 string fullName = firstName + " " + lastName + " " + patronymic;
                 string letterHeader = "Практическое задание";
 
-                _sendMessage.SendMessageToMail(updateStudentPractice.StudentFk.Email, message, fullName, letterHeader);
+                _sendMessage.SendMessageToMail(updateStudentPractice.StudentFk.Email, message, fullName, letterHeader, false);
             }
 
         }

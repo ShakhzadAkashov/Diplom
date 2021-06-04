@@ -5,6 +5,8 @@ import { ThrowStmt } from '@angular/compiler';
 import { UserModel } from '../models/UserModel';
 import { ChangePassword } from '../models/ChangePassword';
 import { URI } from '../models/URI';
+import { ForgotPassword} from '../models/ForgotPassword';
+import { ResetPassword } from '../models/ResetPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +98,14 @@ export class UserService {
 
   changePassword(model:ChangePassword){
     return this.http.post(this.BaseURI + '/UserProfile/ChangPassword',model);
+  }
+
+  forgotPassword(forgotPswd: ForgotPassword){
+    return this.http.post(this.BaseURI + '/ApplicationUser/ForgotPassword',forgotPswd);
+  }
+
+  resetPassword(resetPswd: ResetPassword){
+    return this.http.post(this.BaseURI + '/ApplicationUser/ResetPassword',resetPswd);
   }
 
   roleMatch(allowedRole): boolean{

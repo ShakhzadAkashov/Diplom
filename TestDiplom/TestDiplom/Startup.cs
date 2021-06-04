@@ -54,6 +54,9 @@ namespace TestDiplom
                 .AddEntityFrameworkStores<AuthenticationContext>()
                 .AddDefaultTokenProviders();
 
+            services.Configure<DataProtectionTokenProviderOptions>(opt =>
+            opt.TokenLifespan = TimeSpan.FromHours(2));
+
             services.AddTransient<ISendMessage,SendMessage>();
 
             services.Configure<IdentityOptions>(options => {
