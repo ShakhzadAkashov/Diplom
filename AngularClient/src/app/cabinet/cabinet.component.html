@@ -11,7 +11,8 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="card" style="width: 100%;" >
-                    <img class="view overlay" [src]="createImgPath(userDetails.imgPath)" class="card-img-top" alt=""
+                    <!-- <img class="view overlay" [src]="createImgPath(userDetails.imgPath)" class="card-img-top" alt="" -->
+                    <img class="view overlay" [src]="imageToShow" class="card-img-top" alt=""
                         style=" background-size: cover; height: 20rem;">
                     <div class="card-body text-center" style="height: 5rem;" *ngIf="editMode">
                         <app-file-upload ButtonName="Загрузить фото"  (onUploadFinished)="uploadFinished($event)"></app-file-upload>
