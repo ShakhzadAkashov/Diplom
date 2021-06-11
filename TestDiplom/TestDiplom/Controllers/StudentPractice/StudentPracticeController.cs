@@ -157,12 +157,18 @@ namespace TestDiplom.Controllers.StudentPractice
         [Authorize]
         [Route("GetAll")]
         //GET : /api/StudentPractice/GetAll
-        public async Task<List<StudentPracticeModel>> GetAll()
+        public async Task<List<StudentPracticeModel>> GetAll(string filterText)
         {
             var lst = await _context.StudentPractices
                 .Include(s => s.StudentFk)
                 .Include(s => s.PracticeFk)
                 .ThenInclude(p => p.SubjectFk)
+                .Where(s => (!string.IsNullOrWhiteSpace(filterText)) ? s.PracticeFk.Name.Contains(filterText)
+                || s.PracticeFk.SubjectFk.Name.Contains(filterText)
+                || (s.StudentFk.LastName + " " + s.StudentFk.FirstName + " " + s.StudentFk.Patronymic).Contains(filterText)
+                || s.PracticeScore.ToString() == filterText
+                || (filterText.ToLower() == "принято" ? s.IsAccept == true : filterText.ToLower() == "отправлено на доработку" ? s.IsRevision == true : false)
+                : true)
                 .ToListAsync();
 
             var studentpractices = new List<StudentPracticeModel>();
@@ -299,7 +305,7 @@ namespace TestDiplom.Controllers.StudentPractice
         [Authorize]
         [Route("GetAllForTeacher")]
         //GET : /api/StudentPractice/GetAllForTeacher
-        public async Task<List<StudentPracticeModel>> GetAllForTeacher()
+        public async Task<List<StudentPracticeModel>> GetAllForTeacher(string filterText)
         {
             string userId = User.Claims.First(c => c.Type == "UserID").Value;
 
@@ -307,7 +313,14 @@ namespace TestDiplom.Controllers.StudentPractice
                 .Include(s => s.StudentFk)
                 .Include(s => s.PracticeFk)
                 .ThenInclude(p => p.SubjectFk)
-                .Where(s => s.PracticeFk.OwnerId == userId).ToListAsync();
+                .Where(s => s.PracticeFk.OwnerId == userId)
+                .Where(s => (!string.IsNullOrWhiteSpace(filterText)) ? s.PracticeFk.Name.Contains(filterText)
+                || s.PracticeFk.SubjectFk.Name.Contains(filterText)
+                || (s.StudentFk.LastName + " " + s.StudentFk.FirstName + " " + s.StudentFk.Patronymic).Contains(filterText)
+                || (filterText.ToLower() == "принято" ? s.IsAccept == true : filterText.ToLower() == "отправлено на доработку" ? s.IsRevision == true : false)
+                || s.PracticeScore.ToString() == filterText
+                : true)
+                .ToListAsync();
 
             var lst = new List<StudentPracticeModel>();
 

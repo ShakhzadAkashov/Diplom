@@ -80,8 +80,8 @@ export class UserService {
     return this.http.post(this.BaseURI + '/UserProfile/UpdateUser',user);
   }
 
-  getAll(){
-    return this.http.get(this.BaseURI + '/UserProfile/GetAll');
+  getAll(filterText: string){
+    return this.http.get(this.BaseURI + '/UserProfile/GetAll',{params: {filterText:filterText}});
   }
 
   getById(Id){

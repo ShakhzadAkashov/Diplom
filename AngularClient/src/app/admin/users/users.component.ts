@@ -15,6 +15,7 @@ export class UsersComponent implements OnInit {
 
   usersList:UserModel[] = [];
   loading: boolean = true;
+  filterText='';
   constructor(private service:UserService,private toastr: ToastrService) { }
   @ViewChild('createOrEditUsersModal', { static: true }) createOrEditUsersModal: CreateOrEditUsersModalComponent;
   @ViewChild('viewUsersModal', { static: true }) viewUsersModal: ViewUsersModalComponent; 
@@ -25,16 +26,18 @@ export class UsersComponent implements OnInit {
   }
 
   getAll(){
-    this.service.getAll().subscribe((res:UserModel[])=>{
+    this.service.getAll(this.filterText).subscribe((res:UserModel[])=>{
       this.usersList = res;
       this.loading = false;
     });
   }
 
   getUser(){
+    this.filterText = '';
     this.getAll();
   }
   getPassword(){
+    this.filterText = '';
     this.getAll();
   }
 
@@ -60,5 +63,11 @@ export class UsersComponent implements OnInit {
         this.getAll();
         this.toastr.success('Deleted!', 'User Deleted successful.');
     });
+  }
+
+  filterInput(event){
+    if (event.key === 'Enter' || event.keyCode === 13) {
+      this.getAll();
+    }
   }
 }
